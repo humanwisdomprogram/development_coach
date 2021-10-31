@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>HWP Dev</title>    
+    <base href="/"/>
+   
+    <meta name="viewport" content="initial-scale = 1.0, user-scalable = no">        
+
+    <link rel="icon" type="image/x-icon" href="https://humanwisdoms3.s3.eu-west-2.amazonaws.com/assets/images/logo/logo_favicon_transparent.png"/>    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+          
+    <link rel="manifest" href="manifest.webmanifest">
+    
+    <meta name="theme-color" content="#1976d2">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1976d2">
+
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <app-root></app-root>                    
+      </div>
+	  </div> 	
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- jQuery Tags Input -->
+    <script src="assets/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script> 
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/roundSlider/1.3/roundslider.js'></script>
+    <script  src="assets/js/script.js"></script>
+    
+    
+    <script> 
+    $(document).on('click', '.video26', function() 
+    {        
+      alert('hi'); 
+      if (jQuery("#video").get(0).paused) 
+      {
+        jQuery("#video").trigger("play");
+        jQuery(".play").fadeOut(500);
+      } 
+      else 
+      {
+        jQuery("#video").trigger("pause");
+        jQuery(".play").fadeIn(500);
+      }
+    });  
+    </script> 
+	  <!-- /video -->
+	
+    
+    
+    <!-- on scroll blur header -->
+    <script>
+    $(document).ready(function() {
+      $(window).scroll(function() {    
+        var scroll = $(window).scrollTop();
+        if (scroll >= 30) 
+        {
+          $(".nav_menu").addClass("blur");      
+        } 
+        else 
+        {
+          $(".nav_menu").removeClass("blur");          
+        }
+      });     
+    });
+    </script>
+    <!-- /on scroll blur header -->  
+
+    <!-- accordion -->
+    <script>
+    $(document).ready(function() {
+      // Add minus icon for collapse element which is open by default
+      $(".collapse.in").each(function() {
+        $(this)
+          .siblings(".panel-heading")
+          .find(".glyphicon")
+          .addClass("rotate");
+      });
+
+      // Toggle plus minus icon on show hide of collapse element
+      $(".collapse")
+      .on("show.bs.collapse", function() {
+        $(this)
+          .parent()
+          .find(".glyphicon")
+          .addClass("rotate");
+      })
+      .on("hide.bs.collapse", function() {
+        $(this)
+          .parent()
+          .find(".glyphicon")
+          .removeClass("rotate");
+      });
+    });
+    </script>
+    <!-- /accordion -->
+
+   
+
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
+  </body> 
+</html>
