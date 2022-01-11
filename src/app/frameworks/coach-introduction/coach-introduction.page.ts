@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-coach-introduction',
@@ -7,14 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./coach-introduction.page.scss'],
 })
 export class CoachIntroductionPage implements OnInit {
-
-  constructor(private router: Router) { }
+  isTermsAndConditionChkd =new FormControl(false);
+  constructor(private router: Router,
+    private dataService:DataService,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.paramMap.
+    subscribe(() => this.isTermsAndConditionChkd.setValue(window.history.state?.data?window.history.state.data.isChecked:false));
   }
 
   clicknext() {
-    this.router.navigate(['frameworks/coach-personal-info'])
+   
+    if(this.isTermsAndConditionChkd.value){
+      this.router.navigate(['frameworks/coach-personal-info'])
+    }
   }
 
 }

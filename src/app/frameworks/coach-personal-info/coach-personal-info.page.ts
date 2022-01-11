@@ -43,7 +43,7 @@ export class CoachPersonalInfoPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['frameworks'])
+    this.router.navigate(['frameworks'],{state: {data: {isChecked: true}}})
   }
 
   handleFileInput(files) {
