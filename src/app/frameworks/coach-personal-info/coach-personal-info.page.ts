@@ -1,6 +1,6 @@
 import { DataService } from './../services/data.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,13 +22,14 @@ export class CoachPersonalInfoPage implements OnInit {
     this.personalInfo = this.formbuilder.group({
       Title: ['', [Validators.required]],
       Name: ['', [Validators.required]],
-      Email: ['', [Validators.required]],
+      Gender: ['male', [Validators.required]],
+      Email: ['', [Validators.required, Validators.email]],
       Address: ['', [Validators.required]],
       City: ['', [Validators.required]],
       Country: ['', [Validators.required]],
       State: ['', [Validators.required]],
-      Primary_CTC: ['', [Validators.required]],
-      Secondary_CTC: ['', [Validators.required]],
+      Primary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      Secondary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       Coach_Languages: ['', [Validators.required]]
     })
   }

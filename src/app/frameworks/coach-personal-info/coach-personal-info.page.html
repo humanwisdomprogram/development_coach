@@ -69,10 +69,16 @@
                 <div class="col-md-2 col-sm-2 col-xs-3">
                   <input type="text" required="required" formControlName="Title" class="coach_fc_01"
                     placeholder="Title">
+                    <span *ngIf="!personalInfo.get('Title')?.valid && personalInfo.get('Title')?.touched">
+                      Title is required
+                    </span>
                 </div>
                 <div class="col-md-10 col-sm-10 col-xs-9">
                   <input type="text" required="required" formControlName="Name" class="coach_fc_01"
                     placeholder="Full Name">
+                    <span *ngIf="!personalInfo.get('Name')?.valid && personalInfo.get('Name')?.touched">
+                      Full Name is required
+                    </span>
                 </div>
               </div>
 
@@ -82,6 +88,9 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <input type="text" required="required" formControlName="Email" class="coach_fc_01"
                     placeholder="E-mail">
+                    <span *ngIf="!personalInfo.get('Email')?.valid && personalInfo.get('Email')?.touched">
+                      Please Enter Valid Email and It's required
+                    </span>
                 </div>
               </div>
 
@@ -99,19 +108,19 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="col-md-3 col-sm-3 col-xs-3 pl0px">
                     <div class="txt120 flex_ai">
-                      <input type="radio" value="male" (click)="getGender('Male')" id="male" name="optionsRadios">
+                      <input type="radio" value="male" formControlName="Gender"  (click)="getGender('Male')" id="male" name="optionsRadios">
                       Male
                     </div>
                   </div>
                   <div class="col-md-3 col-sm-3 col-xs-3 pl0px">
                     <div class="ml-5px txt120 flex_ai">
-                      <input type="radio" value="female" (click)="getGender('Female')" id="female" name="optionsRadios">
+                      <input type="radio" value="female" formControlName="Gender" (click)="getGender('Female')" id="female" name="optionsRadios">
                       Female
                     </div>
                   </div>
                   <div class="col-md-3 col-sm-3 col-xs-3 pl0px">
                     <div class="txt120 flex_ai">
-                      <input type="radio" value="any" (click)="getGender('Any')" id="any" name="optionsRadios">
+                      <input type="radio" value="any" formControlName="Gender" (click)="getGender('Any')" id="any" name="optionsRadios">
                       Any
                     </div>
                   </div>
@@ -124,6 +133,9 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <input type="text" formControlName="Address" required="required" class="coach_fc_01"
                     placeholder="Address">
+                    <span *ngIf="!personalInfo.get('Address')?.valid && personalInfo.get('Address')?.touched">
+                      Address is required
+                    </span>
                 </div>
               </div>
 
@@ -132,6 +144,9 @@
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <input type="text" required="required" formControlName="City" class="coach_fc_01" placeholder="City">
+                  <span *ngIf="!personalInfo.get('City')?.valid && personalInfo.get('City')?.touched">
+                    City is required
+                  </span>
                 </div>
               </div>
 
@@ -146,6 +161,9 @@
                     <option>Option three</option>
                     <option>Option four</option>
                   </select>
+                  <span *ngIf="!personalInfo.get('Country')?.valid && personalInfo.get('Country')?.touched">
+                    Country is required
+                  </span>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
                   <select class="form-control coach_fc_01" formControlName="State">
@@ -155,6 +173,9 @@
                     <option>Option three</option>
                     <option>Option four</option>
                   </select>
+                  <span *ngIf="!personalInfo.get('State')?.valid && personalInfo.get('State')?.touched">
+                    State is required
+                  </span>
                 </div>
               </div>
 
@@ -179,6 +200,10 @@
                     +91
                   </span>
                 </div>
+                <span *ngIf="!personalInfo.get('Primary_CTC')?.valid && personalInfo.get('Primary_CTC')?.touched">
+                  <span *ngIf="personalInfo.get('Primary_CTC')?.errors.required">Primary CTC is required</span>  
+                  <span *ngIf="personalInfo.get('Primary_CTC')?.errors.pattern">Please, Enter 10 digit Mobile Number only.</span>  
+                </span>
               </div>
 
               <br>
@@ -202,6 +227,10 @@
                     +91
                   </span>
                 </div>
+                <span *ngIf="!personalInfo.get('Secondary_CTC')?.valid && personalInfo.get('Secondary_CTC')?.touched">
+                  <span *ngIf="personalInfo.get('Secondary_CTC')?.errors.required"> Secondary CTC is required</span>  
+                  <span *ngIf="personalInfo.get('Secondary_CTC')?.errors.pattern">Please, Enter 10 digit Mobile Number only.</span>  
+                </span>
               </div>
 
               <br>
@@ -215,6 +244,9 @@
                     <option>Option three</option>
                     <option>Option four</option>
                   </select>
+                  <span *ngIf="!personalInfo.get('Coach_Languages')?.valid && personalInfo.get('Coach_Languages')?.touched">
+                    Languages is required
+                  </span>
                 </div>
               </div>
 
