@@ -12,13 +12,19 @@ export class CoachPersonalInfoPage implements OnInit {
   public personalInfo: FormGroup
   public profilepic: string;
   public gender: string;
-
+  countries   :string;
+  currencies   :string;    
+  regions   :string;   
+  languages :string;     
+  callingCountries:string;
+  state:string;
   constructor(
     private router: Router,
     private formbuilder: FormBuilder,
     private dataservice: DataService) { }
 
-  ngOnInit() {
+  ngOnInit() { 
+    this.SetCountriesData()
     this.personalInfo = this.formbuilder.group({
       Title: ['', [Validators.required]],
       Name: ['', [Validators.required]],
@@ -64,5 +70,13 @@ export class CoachPersonalInfoPage implements OnInit {
   getGender(value) {
     this.gender = value;
   }
+   SetCountriesData(){
+   this.currencies       = require('country-data').currencies,
+   this.regions          = require('country-data').regions,
+   this.languages        = require('country-data').languages,
+   this.callingCountries = require('country-data').callingCountries;
 
+   this.countries = require('country-state-city').Country;
+  this.state= require('country-state-city').State;
+   }
 }
