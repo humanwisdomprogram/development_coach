@@ -15,4 +15,18 @@ export class ApiService {
   register(data:any):Observable<any>{
     return this.http.post(this.path+'/AddCoach',data)
   }
+
+  getCountry(): Observable<any> {
+    return this.http.get('https://staging.humanwisdom.info/api/Countries');
+  }
+
+  getState(id: number): Observable<any> {
+    return this.http.get('https://staging.humanwisdom.info/api/State/'+id);
+  }
+
+  getLanguageList(): Observable<any> {
+    return this.http.get('https://staging.humanwisdom.info/api/Countries');
+  }
 }
+
+

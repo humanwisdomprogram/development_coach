@@ -2,6 +2,7 @@ import { DataService } from './../services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-coach-personal-info',
@@ -16,9 +17,14 @@ export class CoachPersonalInfoPage implements OnInit {
   constructor(
     private router: Router,
     private formbuilder: FormBuilder,
-    private dataservice: DataService) { }
+    private dataservice: DataService,
+    private apiservice: ApiService) { }
 
   ngOnInit() {
+
+    this.apiservice.getCountry().subscribe((res) => {
+      console.log('Country', res)
+    })
     this.personalInfo = this.formbuilder.group({
       Title: ['', [Validators.required]],
       Name: ['', [Validators.required]],
@@ -36,10 +42,10 @@ export class CoachPersonalInfoPage implements OnInit {
 
   nextRoute() {
     let obj = this.personalInfo.value;
-    obj['Gender'] = this.gender;
-    obj['ProfilePic'] = this.profilepic.split(',')[1];
-    obj['Coach_Languages'] = [this.personalInfo.value['Coach_Languages']];
-    this.dataservice.personalInfo.next(obj);
+   obj['Gender'] = this.gender;
+   obj['ProfilePic'] = this.profilepic.split(',')[1];
+   obj['Coach_Languages'] = [this.personalInfo.value['Coach_Languages']];
+   this.dataservice.personalInfo.next(obj);
     this.router.navigate(['frameworks/coach-professional-info'])
   }
 

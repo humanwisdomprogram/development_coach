@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class CoachProfessionalInfoPage implements OnInit {
   public professionalInfo: FormGroup
   public certificate = [];
+  public isCurrent = false;
 
   constructor(private router: Router, private formbuilder: FormBuilder, private dataservice: DataService) {
   }
@@ -21,7 +22,7 @@ export class CoachProfessionalInfoPage implements OnInit {
       Coach_WorkExp: this.formbuilder.array([this.createqualification(1)]),
       certificate: this.formbuilder.array([this.createqualification(2)]),
       link: this.formbuilder.array([this.createqualification(3)]),
-      Coach_Specializations: ['']
+      Coach_Specializations: ['', [Validators.required]]
     })
   }
 
@@ -33,21 +34,22 @@ export class CoachProfessionalInfoPage implements OnInit {
     } else if (value === 1) {
       return this.formbuilder.group({
         InstituteName: [''],
-        City: [''],
-        Country: [''],
-        From_Year: [''],
-        From_Month: [''],
-        To_Year: [''],
-        To_Month: [''],
-        IsCurrent: ['']
+        City: ['', [Validators.required]],
+        Country: ['', [Validators.required]],
+        From_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
+        From_Month: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
+        To_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
+        To_Month: ['',  [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
+        IsCurrent: [false]
       })
     } else if (value === 2) {
       return this.formbuilder.group({
         name: ['']
       })
     } else if (value === 3) {
+      const reg = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
       return this.formbuilder.group({
-        name: ['']
+        name: ['', [Validators.required, Validators.pattern(reg)]]
       })
     }
   }
@@ -61,6 +63,27 @@ export class CoachProfessionalInfoPage implements OnInit {
       (this.professionalInfo.controls['certificate'] as FormArray).push(this.createqualification(value))
     } else if (value === 3) {
       (this.professionalInfo.controls['link'] as FormArray).push(this.createqualification(value))
+    }
+
+    console.log('QUalificationValues', this.professionalInfo?.controls['Coach_WorkExp'] )
+  }
+
+  RemoveQUalification(i) {
+    (this.professionalInfo.controls['qualification'] as FormArray).removeAt(i);
+  }
+
+  RemoveExp(i) {
+    (this.professionalInfo.controls['Coach_WorkExp'] as FormArray).removeAt(i);
+  }
+
+  RemoveLinks(i) {
+    (this.professionalInfo.controls['link'] as FormArray).removeAt(i);
+  }
+  isCurrentWorking(e) {
+    if(e.target.checked){
+      this.isCurrent = true;
+    } else {
+      this.isCurrent = false;
     }
   }
 
