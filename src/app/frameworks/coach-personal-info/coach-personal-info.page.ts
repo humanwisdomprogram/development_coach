@@ -30,10 +30,17 @@ export class CoachPersonalInfoPage implements OnInit {
     private formbuilder: FormBuilder,
     private dataservice: DataService,
     private apiservice: ApiService) {
-    this.PerformInitialDataBind();
+      this.initialForms()
+  
+    
   }
 
   ngOnInit() {
+    
+    this.PerformInitialDataBind();
+  }
+
+  initialForms() {
     this.personalInfo = this.formbuilder.group({
       Title: ['', [Validators.required]],
       Name: ['', [Validators.required]],
@@ -43,8 +50,8 @@ export class CoachPersonalInfoPage implements OnInit {
       City: ['', [Validators.required]],
       Country: ['', [Validators.required]],
       State: ['', [Validators.required]],
-      Primary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      Secondary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      Primary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{9}$")]],
+      Secondary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{11}$")]],
       Coach_Languages: ['', [Validators.required]],
       Code: ['', [Validators.required]],
       Phonecode: ['', [Validators.required]]
@@ -65,8 +72,9 @@ export class CoachPersonalInfoPage implements OnInit {
 
 
   SetInitialCoachInfo() {
+    this.dataservice.coachInfo = this.dataservice.InitializeCoachInfo();
     if (localStorage.getItem('coachInfo') == null) {
-      this.dataservice.coachInfo = this.dataservice.InitializeCoachInfo();
+      
       this.GetCoachDetails();
     } else {
       this.dataservice.coachInfo = JSON.parse(localStorage.getItem('coachInfo'));
@@ -88,8 +96,10 @@ export class CoachPersonalInfoPage implements OnInit {
   }
 
   SetPersonalFormControlValue(res: CoachInfo) {
+    debugger
     this.personalInfo.setValue(
       {
+        
         Title: res.Title,
         Name: res.Name,
         Gender: res.Gender,
@@ -104,6 +114,8 @@ export class CoachPersonalInfoPage implements OnInit {
         Phonecode: "+91",
         Code: ""
       });
+     // this.profilepic = res.ProfilePic;
+      this.changeCity(res.Country)
       this.SetPersonalInfoObservableData();
   }
 
@@ -137,8 +149,8 @@ export class CoachPersonalInfoPage implements OnInit {
       this.callingCountries = require('country-data').callingCountries;
   }
 
-  changeCity($event: any) {
-    let country = this.countries.filter(x => x.name == $event.target.value)[0];
+  changeCity(name: any) {
+    let country = this.countries.filter(x => x.name == name)[0];
     this.personalInfo.patchValue({
       Code: country.code,
       Phonecode: country.phonecode,
@@ -158,8 +170,13 @@ export class CoachPersonalInfoPage implements OnInit {
   }
   //Next
   nextRoute() {
-   this.SetPersonalInfoObservableData();
+  // this.SetPersonalInfoObservableData();
+  this.personalInfo.patchValue({
+    'Coach_Languages': this.dataservice.coachInfo.Coach_Languages
+  })
+  
     this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.personalInfo.value);
+   // this.dataservice.coachInfo.Coach_Languages = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
     localStorage.setItem('coachInfo', JSON.stringify(this.dataservice.coachInfo));
     this.router.navigate(['frameworks/coach-professional-info'])
   }
@@ -168,7 +185,7 @@ export class CoachPersonalInfoPage implements OnInit {
   SetPersonalInfoObservableData(){
     let obj = this.personalInfo.value;
     obj['Gender'] = this.gender;
-    obj['ProfilePic'] = this.profilepic.split(',')[1];
+    // obj['ProfilePic'] = this.profilepic.split(',')[1];
     obj['Coach_Languages'] = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
     this.dataservice.personalInfo.next(obj);
   }
