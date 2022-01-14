@@ -24,7 +24,7 @@ export class CoachIntroductionPage implements OnInit {
   }
 
   emaillogin(){
-    this.apiService.emailLogin("hwpuser1@gmail.com", "hwpuser")
+    this.apiService.emailLogin("spider@gmail.com", "123456")
     .subscribe(
       res=>
       {//console.log(res)

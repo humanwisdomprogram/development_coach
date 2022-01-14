@@ -25,13 +25,14 @@ import { AuthGuard } from './auth.guard';
 
 import { StripeModule } from "stripe-angular"
 import { DataService } from './frameworks/services/data.service';
-
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,    
+  imports: [BrowserModule, IonicModule.forRoot(), 
+    NgMultiSelectDropDownModule.forRoot(),
+    AppRoutingModule,    
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -41,12 +42,14 @@ import { DataService } from './frameworks/services/data.service';
     
     ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     StatusBar,
     FormsModule,
     DataService,
     ApiService,
     AuthGuard,
     ReactiveFormsModule,
+
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: TokenInterceptorService,

@@ -154,24 +154,18 @@
 
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6">
-                  <select class="form-control coach_fc_01" formControlName="Country">
-                    <option>Country</option>
-                    <option>Option one</option>
-                    <option>Option two</option>
-                    <option>Option three</option>
-                    <option>Option four</option>
+                  <select class="form-control select2_group coach_fc_01" (change)="changeCity($event)" formControlName="Country">
+                    <option [value]=""> Select Country</option>
+                    <option *ngFor="let c of countries" [value]="c.name" >{{c.name}}</option>
                   </select>
                   <span *ngIf="!personalInfo.get('Country')?.valid && personalInfo.get('Country')?.touched">
                     Country is required
                   </span>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6">
-                  <select class="form-control coach_fc_01" formControlName="State">
+                  <select class="select2_group form-control coach_fc_01" formControlName="State">
                     <option>Province / State</option>
-                    <option>Option one</option>
-                    <option>Option two</option>
-                    <option>Option three</option>
-                    <option>Option four</option>
+                    <option *ngFor="let c of state" [value]="c.name" >{{c.name}}</option>
                   </select>
                   <span *ngIf="!personalInfo.get('State')?.valid && personalInfo.get('State')?.touched">
                     State is required
@@ -191,15 +185,14 @@
 
               <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-3">
-                  <input type="text" class="coach_fc_01" placeholder="IN">
+                  <input type="text" class="coach_fc_01" [value]="Code" formControlName="Code" >
                 </div>
                 <div class="col-md-10 col-sm-10 col-xs-9">
                   <input type="text" required="required" formControlName="Primary_CTC"
                     class="coach_fc_01 feedback_left" placeholder="">
-                  <span class="form-control-feedback left coach_fc_fl" aria-hidden="true">
-                    +91
-                  </span>
-                </div>
+                    <span class="form-control-feedback left coach_fc_fl"  [innerHTML]="Phonecode" formControlName="Phonecode"  aria-hidden="true">
+              </span>
+                    </div>
                 <span *ngIf="!personalInfo.get('Primary_CTC')?.valid && personalInfo.get('Primary_CTC')?.touched">
                   <span *ngIf="personalInfo.get('Primary_CTC')?.errors.required">Primary CTC is required</span>  
                   <span *ngIf="personalInfo.get('Primary_CTC')?.errors.pattern">Please, Enter 10 digit Mobile Number only.</span>  
@@ -218,13 +211,12 @@
 
               <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-3">
-                  <input type="text" class="coach_fc_01" placeholder="IN">
+                  <input type="text" class="coach_fc_01" placeholder="" formControlName="Code">
                 </div>
                 <div class="col-md-10 col-sm-10 col-xs-9">
                   <input type="text" required="required" formControlName="Secondary_CTC"
                     class="coach_fc_01 feedback_left" placeholder="">
-                  <span class="form-control-feedback left coach_fc_fl" aria-hidden="true">
-                    +91
+                  <span class="form-control-feedback left coach_fc_fl" [innerHTML]="Phonecode" formControlName="Phonecode" aria-hidden="true">
                   </span>
                 </div>
                 <span *ngIf="!personalInfo.get('Secondary_CTC')?.valid && personalInfo.get('Secondary_CTC')?.touched">
@@ -237,13 +229,12 @@
 
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <select class="form-control coach_fc_01" formControlName="Coach_Languages">
-                    <option>Languages known (check all that apply)</option>
-                    <option>Option one</option>
-                    <option>Option two</option>
-                    <option>Option three</option>
-                    <option>Option four</option>
-                  </select>
+                  <ng-multiselect-dropdown
+                  [settings]="dropdownSettings"
+                  [placeholder]="'Select Your Languages Known'"
+                   formControlName="Coach_Languages"
+                  [data]="languageList">
+                 </ng-multiselect-dropdown>
                   <span *ngIf="!personalInfo.get('Coach_Languages')?.valid && personalInfo.get('Coach_Languages')?.touched">
                     Languages is required
                   </span>
@@ -275,13 +266,13 @@
                 </div>
               </div>
 
-              <!-- <div class="row pt10px">
+              <div class="row pt10px">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <button type="submit" class="btn btn-warning btn_save_later w100">
+                  <button type="submit"(click)="saveForLater()" [disabled]="personalInfo.invalid || profilepic === undefined || gender === undefined" class="btn btn-warning btn_save_later w100">
                     Save for Later
                   </button>
                 </div>
-              </div> -->
+              </div>
 
               <div class="pagebreak"></div>
 

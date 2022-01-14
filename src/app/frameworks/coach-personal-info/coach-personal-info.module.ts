@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CoachPersonalInfoPageRoutingModule } from './coach-personal-info-routing.module';
 
 import { CoachPersonalInfoPage } from './coach-personal-info.page';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CoachPersonalInfoPage } from './coach-personal-info.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CoachPersonalInfoPageRoutingModule
+   CoachPersonalInfoPageRoutingModule,
+   NgMultiSelectDropDownModule
   ],
   declarations: [CoachPersonalInfoPage]
 })
