@@ -30,6 +30,10 @@ export class ApiService {
   getLanguageList(): Observable<any> {
     return this.http.get('https://staging.humanwisdom.info/api/Countries');
   }
+
+  getCoachDetails(id:number): Observable<any> {
+    return this.http.get(this.path+'/GetCoach/'+id);
+  }
 }
 
 

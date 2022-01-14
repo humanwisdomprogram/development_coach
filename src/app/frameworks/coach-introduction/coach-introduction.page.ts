@@ -15,20 +15,19 @@ export class CoachIntroductionPage implements OnInit {
   constructor(private router: Router,
     private dataService:DataService,
     private apiService:ApiService,
-    private activatedRoute:ActivatedRoute) { }
+    private activatedRoute:ActivatedRoute) { 
+      this.emaillogin();
+    }
 
   ngOnInit() {
     this.activatedRoute.paramMap.
     subscribe(() => this.isTermsAndConditionChkd.setValue(window.history.state?.data?window.history.state.data.isChecked:false));
-    this.emaillogin();
   }
 
   emaillogin(){
     this.apiService.emailLogin("spider@gmail.com", "123456")
     .subscribe(
-      res=>
-      {//console.log(res)
-     
+      res=> {
         this.userId = res.UserId
         console.log(res)
         let guest = localStorage.getItem('guest');
@@ -42,6 +41,7 @@ export class CoachIntroductionPage implements OnInit {
         localStorage.setItem("pswd", "hwpuser")
         localStorage.setItem("name", res.Name)
         this.userId=JSON.parse(localStorage.getItem("userId"))
+       // this.GetCoachDetails();
       },
       error=>{console.log(error)},
       ()=>{
@@ -54,8 +54,9 @@ export class CoachIntroductionPage implements OnInit {
 
 
   clicknext() {
-   
+      
     if(this.isTermsAndConditionChkd.value){
+
       this.router.navigate(['frameworks/coach-personal-info'])
     }
   }
