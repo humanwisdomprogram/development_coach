@@ -190,7 +190,7 @@
                 <div class="col-md-10 col-sm-10 col-xs-9">
                   <input type="text" required="required" formControlName="Primary_CTC"
                     class="coach_fc_01 feedback_left" placeholder="">
-                    <span class="form-control-feedback left coach_fc_fl"  [innerHTML]="Phonecode" formControlName="Phonecode"  aria-hidden="true">
+                    <span class="form-control-feedback left coach_fc_fl" [disabled]="true"  [innerHTML]="personalInfo.get('Phonecode')?.value ? '+' + personalInfo.get('Phonecode')?.value : ''" formControlName="Phonecode"  aria-hidden="true">
               </span>
                     </div>
                 <span *ngIf="!personalInfo.get('Primary_CTC')?.valid && personalInfo.get('Primary_CTC')?.touched">
@@ -216,7 +216,7 @@
                 <div class="col-md-10 col-sm-10 col-xs-9">
                   <input type="text" required="required" formControlName="Secondary_CTC"
                     class="coach_fc_01 feedback_left" placeholder="">
-                  <span class="form-control-feedback left coach_fc_fl" [innerHTML]="Phonecode" formControlName="Phonecode" aria-hidden="true">
+                  <span class="form-control-feedback left coach_fc_fl" [innerHTML]="personalInfo.get('Phonecode')?.value ? '+' + personalInfo.get('Phonecode')?.value : ''"  formControlName="Phonecode" aria-hidden="true" [disabled]="true">
                   </span>
                 </div>
                 <span *ngIf="!personalInfo.get('Secondary_CTC')?.valid && personalInfo.get('Secondary_CTC')?.touched">
