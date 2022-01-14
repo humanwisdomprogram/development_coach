@@ -2,6 +2,7 @@ import { DataService } from './../services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Country, State, City }  from 'country-state-city';
 
 @Component({
   selector: 'app-coach-professional-info',
@@ -12,11 +13,16 @@ export class CoachProfessionalInfoPage implements OnInit {
   public professionalInfo: FormGroup
   public certificate = [];
   public isCurrent = false;
-
+  public inCorrectType = false;
+  public countries = [];
+  public city=[];
+  callingCountries:string;
   constructor(private router: Router, private formbuilder: FormBuilder, private dataservice: DataService) {
   }
 
   ngOnInit() {
+    this.SetCountriesData();
+    this.countries=Country.getAllCountries().map(o => new Object({name: o.name, code: o.isoCode,phonecode:o.phonecode}));
     this.professionalInfo = this.formbuilder.group({
       qualification: this.formbuilder.array([this.createqualification(0)]),
       Coach_WorkExp: this.formbuilder.array([this.createqualification(1)]),
@@ -25,6 +31,10 @@ export class CoachProfessionalInfoPage implements OnInit {
       Coach_Specializations: ['', [Validators.required]]
     })
   }
+
+  SetCountriesData(){
+    this.callingCountries = require('country-data').callingCountries;
+    }
 
   createqualification(value) {
     if (value === 0) {
@@ -79,12 +89,32 @@ export class CoachProfessionalInfoPage implements OnInit {
   RemoveLinks(i) {
     (this.professionalInfo.controls['link'] as FormArray).removeAt(i);
   }
-  isCurrentWorking(e) {
+
+  RemoveCertificate(i) {
+    (this.professionalInfo.controls['certificate'] as FormArray).removeAt(i);
+  }
+
+  isCurrentWorking(e, i) {
     if(e.target.checked){
       this.isCurrent = true;
+      (<FormArray>this.professionalInfo.get('Coach_WorkExp'))?.controls[i].get('To_Month').clearValidators();
+      (<FormArray>this.professionalInfo.get('Coach_WorkExp'))?.controls[i].get('To_Year').clearValidators();
+      (<FormArray>this.professionalInfo.get('Coach_WorkExp'))?.controls[i].get('To_Month').updateValueAndValidity();
+      (<FormArray>this.professionalInfo.get('Coach_WorkExp'))?.controls[i].get('To_Year').updateValueAndValidity();
+
     } else {
       this.isCurrent = false;
+      (<FormArray>this.professionalInfo.get('Coach_WorkExp'))?.controls[i].get('To_Month').setValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]);
+      (<FormArray>this.professionalInfo.get('Coach_WorkExp'))?.controls[i].get('To_Year').setValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]);
+      (<FormArray>this.professionalInfo.get('Coach_WorkExp'))?.controls[i].get('To_Month').updateValueAndValidity();
+      (<FormArray>this.professionalInfo.get('Coach_WorkExp'))?.controls[i].get('To_Year').updateValueAndValidity();
+
     }
+  }
+
+  changeCity($event:any, i:number){
+    let country=this.countries.filter(x=>x.name==$event.target.value)[0];
+   this.city.push(City.getCitiesOfCountry(country.code));
   }
 
   handleFileInput(files, text) {
