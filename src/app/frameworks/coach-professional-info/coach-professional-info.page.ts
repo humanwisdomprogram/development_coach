@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Country, State, City }  from 'country-state-city';
+import { initialize } from '@ionic/core';
+import { CoachInfo } from '../coach-model/coach-info';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-coach-professional-info',
@@ -17,10 +20,14 @@ export class CoachProfessionalInfoPage implements OnInit {
   public countries = [];
   public city=[];
   callingCountries:string;
-  constructor(private router: Router, private formbuilder: FormBuilder, private dataservice: DataService) {
+  constructor(private router: Router, 
+    private formbuilder: FormBuilder,
+     private dataservice: DataService,
+     private apiService:ApiService) {
   }
 
   ngOnInit() {
+    this.InitializeCoachInfo();
     this.SetCountriesData();
     this.countries=Country.getAllCountries().map(o => new Object({name: o.name, code: o.isoCode,phonecode:o.phonecode}));
     this.professionalInfo = this.formbuilder.group({
@@ -141,11 +148,48 @@ export class CoachProfessionalInfoPage implements OnInit {
     delete obj['link']
     delete obj['qualification']
     this.dataservice.professionalInfo.next(obj)
+    this.dataservice.coachInfo=Object.assign(this.dataservice.coachInfo,this.professionalInfo.value);
     this.router.navigate(['frameworks/coach-payment-info'])
   }
 
   goBack() {
     this.router.navigate(['frameworks/coach-personal-info'])
   }
+  InitializeCoachInfo(){
+    if(localStorage.getItem('coachInfo')==null){
+      this.GetCoachDetails();
+    }else{
+      this.dataservice.coachInfo = JSON.parse(localStorage.getItem('coachInfo'));
+      this.setProfessionalInfoFormControl(this.dataservice.coachInfo);
+    }
+    }
+  
+    GetCoachDetails() {
+      this.apiService.getCoachDetails(879).subscribe(res => {
+        this.dataservice.coachInfo = res;
+        if (res != null) {
+          this.setProfessionalInfoFormControl(res);
+        }
+      });
+    }
 
+
+
+  setProfessionalInfoFormControl(res:CoachInfo){
+    // this.professionalInfo.patchValue(
+    //   {
+    //     InstituteName:res.,
+    //     City: ['', [Validators.required]],
+    //     Country: ['', [Validators.required]],
+    //     From_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
+    //     From_Month: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
+    //     To_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
+    //     To_Month: ['',  [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
+    //     IsCurrent: [false]
+    //   });
+  }
+
+  saveForLater(){
+    
+  }
 }

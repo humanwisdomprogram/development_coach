@@ -41,7 +41,6 @@ export class CoachIntroductionPage implements OnInit {
         localStorage.setItem("pswd", "hwpuser")
         localStorage.setItem("name", res.Name)
         this.userId=JSON.parse(localStorage.getItem("userId"))
-       // this.GetCoachDetails();
       },
       error=>{console.log(error)},
       ()=>{

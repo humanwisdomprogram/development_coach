@@ -14,7 +14,7 @@ import { CoachInfo } from '../coach-model/coach-info';
 })
 export class CoachPersonalInfoPage implements OnInit {
   public personalInfo: FormGroup
-  public profilepic: string;
+  public profilepic: any;
   public gender: string = "male";
   countries = []
   currencies: string;
@@ -88,7 +88,7 @@ export class CoachPersonalInfoPage implements OnInit {
   }
 
   GetCoachDetails() {
-    this.apiservice.getCoachDetails(this.dataservice.userId).subscribe(res => {
+    this.apiservice.getCoachDetails(879).subscribe(res => {
       this.dataservice.coachInfo = res;
       if (res != null) {
         this.SetPersonalFormControlValue(res);
@@ -115,7 +115,7 @@ export class CoachPersonalInfoPage implements OnInit {
         Phonecode: "+91",
         Code: ""
       });
-     // this.profilepic = res.ProfilePic;
+      this.profilepic = 'data:image/jpg;base64,' + res.ProfilePic;
       this.changeCity(res.Country)
       this.SetPersonalInfoObservableData();
   }
@@ -123,11 +123,38 @@ export class CoachPersonalInfoPage implements OnInit {
   handleFileInput(files) {
     let file = files.target.files[0];
     let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e: any) => {
-      const res: string = e.target.result;
-      this.profilepic = res;
-    };
+    if (files.length === 0)
+        return;
+    const mimeType = file.type;
+    if (mimeType.match(/image\/*/) == null) {
+        return;
+    }
+    reader.readAsDataURL(file); 
+    reader.onload = (_event) => { 
+      let byte: any = reader.result;
+      byte = byte.split('base64,')
+      this.profilepic=reader.result;
+      if(byte[1] !== undefined && byte[1] !== '') {
+        let obj = {
+          "UserID": this.dataservice.userId,
+          "byteArray": byte[1] 
+        }
+        this.apiservice.uploaderAvatar(obj).subscribe((r) => {
+          if(r) {
+            this.profilepic = reader.result; 
+          }
+        })
+      }
+    }
+
+
+
+
+    
+  }
+
+  getFileUpload(event) {
+  
   }
 
   GetLanguages() {
@@ -187,7 +214,7 @@ export class CoachPersonalInfoPage implements OnInit {
     let obj = this.personalInfo.value;
     obj['Gender'] = this.gender;
     // obj['ProfilePic'] = this.profilepic.split(',')[1];
-    obj['Coach_Languages'] = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
+  //  obj['Coach_Languages'] = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
     this.dataservice.personalInfo.next(obj);
   }
 

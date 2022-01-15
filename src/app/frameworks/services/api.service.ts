@@ -34,6 +34,10 @@ export class ApiService {
   getCoachDetails(id:number): Observable<any> {
     return this.http.get(this.path+'/GetCoach/'+id);
   }
+  
+  uploaderAvatar(data) {
+    return this.http.post(this.path+`/UploadAvatar`,data)
+  }
 }
 
 
