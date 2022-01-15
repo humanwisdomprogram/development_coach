@@ -1,8 +1,9 @@
 import { ApiService } from './../services/api.service';
 import { DataService } from './../services/data.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CoachInfo } from '../coach-model/coach-info';
 
 @Component({
   selector: 'app-coach-payment-info',
@@ -13,7 +14,7 @@ export class CoachPaymentInfoPage implements OnInit {
   public paymentinfo: FormGroup;
   public natinalIdFront: string;
   public natinalIdback: string;
-
+  isTermsAndConditionChkd =new FormControl(false);
   constructor(
     private router: Router,
      private formbuilder: FormBuilder,
@@ -28,10 +29,42 @@ export class CoachPaymentInfoPage implements OnInit {
    }
 
   ngOnInit() {
+    this.SetInitialCoachInfo();
   }
 
   goBack() {
     this.router.navigate(['frameworks/coach-professional-info'])
+  }
+
+  SetInitialCoachInfo() {
+    this.dataservice.coachInfo = this.dataservice.InitializeCoachInfo();
+    if (localStorage.getItem('coachInfo') == null) {
+      this.GetCoachDetails();
+    } else {
+      this.dataservice.coachInfo = JSON.parse(localStorage.getItem('coachInfo'));
+      this.SetPaymentInfo(this.dataservice.coachInfo);
+    }
+  }
+  
+  GetCoachDetails() {
+    this.apiservice.getCoachDetails(879).subscribe(res => {
+      this.dataservice.coachInfo = res;
+      if (res != null) {
+       this.SetPaymentInfo(res);
+      }
+    });
+  }
+
+  SetPaymentInfo(coachInfo:CoachInfo){
+    this.paymentinfo.setValue({
+      Consult_StrtTime: coachInfo.Consult_StrtTime,
+      Consult_EndTime:  coachInfo.Consult_EndTime,
+      PerSessionFee: coachInfo.PerSessionFee,
+      PerSessionFee_Cur: coachInfo.PerSessionFee_Curr,
+      PayPallD: coachInfo.PayPalID
+    });
+    this.natinalIdFront=coachInfo.NationalID_Front,
+    this.natinalIdback=coachInfo.NationalID_Back
   }
 
   handleFileInput(files, value) {
@@ -52,7 +85,11 @@ export class CoachPaymentInfoPage implements OnInit {
     document.getElementById(id).click();
   }
 
-  submitForm() {
+  submitForm(eventName:string) {
+    if(this.paymentinfo.invalid || this.natinalIdback==''  || this.natinalIdFront=='' ||
+    !this.isTermsAndConditionChkd.value){
+      return false;
+    }
     let profile;
     let professional;
     this.dataservice.personalInfo.subscribe((res) => {
@@ -62,10 +99,16 @@ export class CoachPaymentInfoPage implements OnInit {
       professional = res;
     })
     let obj = this.paymentinfo.value;
-    obj['NationalID_Front'] = this.natinalIdFront;
-    obj['NationalID_Back'] = this.natinalIdback;
-    this.apiservice.register({...obj, ...profile, ...professional}).subscribe((res) => {
-      console.log(res)
+
+    this.dataservice.coachInfo=Object.assign(this.dataservice.coachInfo,obj);
+    this.dataservice.coachInfo.NationalID_Back=this.natinalIdback;
+    this.dataservice.coachInfo.NationalID_Front=this.natinalIdFront;
+    this.apiservice.register( this.dataservice.coachInfo).subscribe((res) => {
+      if(res=="1"){
+        if(eventName=='submit'){
+          this.router.navigate(['frameworks/coach-congratulations'])
+        }
+      }
     })
   }
 

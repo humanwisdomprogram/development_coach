@@ -16,8 +16,8 @@ export interface CoachInfo {
     PerSessionFee:         string;
     PerSessionFee_Curr:    string;
     PayPalID:              string;
-    NationalID_Front:      null;
-    NationalID_Back:       null;
+    NationalID_Front:      string;
+    NationalID_Back:       string;
     Coach_WorkExp:         CoachWorkExp[];
     Coach_Certificates:    CoachCertificate[];
     Coach_Specializations: string[];

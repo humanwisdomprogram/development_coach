@@ -98,7 +98,7 @@
                 <div class="col-md-2 col-sm-2 col-xs-3">
                   <select class="form-control coach_fc_01" formControlName="PerSessionFee_Cur">
                     <option>INR</option>
-                    <option>Option one</option>
+                    <option>USD</option>
                     <option>Option two</option>
                     <option>Option three</option>
                     <option>Option four</option>
@@ -186,16 +186,15 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="checkbox">
                     <label class="pcoach_check mt0px">
-                      <input type="checkbox" name="remember" value="" />
+                      <input type="checkbox" name="remember" value=""   [formControl]="isTermsAndConditionChkd"/>
                       <span class="dinline_flex">
                         <p class="pl10px_imp">
                           <span class="txt65 pl0_3rem">
                             I agree with the
                           </span>
                           <a>
-                            <span class="txt143 pl0_3rem underline">
-                              Terms & Conditions
-                            </span>
+                            <a class="txt115 td_underline" href="https://humanwisdom.me/course/#/adults/framework-v1/terms-conditions" 
+                            target="_blank">Terms & Conditions</a>
                           </a>
                           <span class="txt65 pl0_3rem">
                             of the Human Wisdom Program
@@ -217,21 +216,25 @@
 
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <button type="submit" (click)="submitForm()"
-                    [disabled]="paymentinfo.invalid || natinalIdFront === undefined || natinalIdback === undefined"
+                  <button type="submit" (click)="submitForm('submit')"
+                    [disabled]="paymentinfo.invalid || natinalIdFront === undefined ||
+                     natinalIdFront=='' || natinalIdback === undefined || natinalIdback==''  || !isTermsAndConditionChkd"
                     class="btn btn-warning btn_coach_continue w100">
                     Submit
                   </button>
                 </div>
               </div>
 
-              <!-- <div class="row pt10px">                  
+              <div class="row pt10px">                  
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <button type="submit" class="btn btn-warning btn_save_later w100">
+                  <button type="submit"  (click)="submitForm('saveForLater')"
+                  [disabled]="paymentinfo.invalid || natinalIdFront === undefined ||
+                  natinalIdFront=='' || natinalIdback === undefined || natinalIdback==''  || !isTermsAndConditionChkd"
+                  class="btn btn-warning btn_save_later w100">
                     Save for Later
                   </button>  
                 </div>
-              </div> -->
+              </div>
 
               <div class="pagebreak"></div>
 
