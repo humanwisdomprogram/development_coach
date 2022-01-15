@@ -52,6 +52,7 @@ export class CoachPersonalInfoPage implements OnInit {
   }
 
   PerformInitialDataBind() {
+    this.dataservice.userId=+localStorage.getItem('userId');
     this.SetCountriesData();
     this.countries = Country.getAllCountries().map(o => new Object({ name: o.name, code: o.isoCode, phonecode: o.phonecode }));
     this.languageList = this.dataservice.getLanguageList().
@@ -79,7 +80,7 @@ export class CoachPersonalInfoPage implements OnInit {
   }
 
   GetCoachDetails() {
-    this.apiservice.getCoachDetails(879).subscribe(res => {
+    this.apiservice.getCoachDetails(this.dataservice.userId).subscribe(res => {
       this.dataservice.coachInfo = res;
       if (res != null) {
         this.SetPersonalFormControlValue(res);

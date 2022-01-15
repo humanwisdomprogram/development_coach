@@ -10,6 +10,7 @@ export class DataService {
     public personalInfo = new BehaviorSubject<any>({});
     public professionalInfo = new BehaviorSubject<any>({});
     public coachInfo:CoachInfo;
+    public userId:number=0;
     getLanguageList(){
       return  [
             {"code":"ab","name":"Abkhaz","nativeName":"аҧсуа"},

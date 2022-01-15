@@ -28,7 +28,7 @@ export class ApiService {
   }
 
   getLanguageList(): Observable<any> {
-    return this.http.get('https://staging.humanwisdom.info/api/Countries');
+    return this.http.get('https://staging.humanwisdom.info/api/GetCoachLanguages');
   }
 
   getCoachDetails(id:number): Observable<any> {
