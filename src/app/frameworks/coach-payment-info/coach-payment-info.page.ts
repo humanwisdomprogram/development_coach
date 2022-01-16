@@ -86,8 +86,10 @@ export class CoachPaymentInfoPage implements OnInit {
   }
 
   submitForm(eventName:string) {
-    if(this.paymentinfo.invalid || this.natinalIdback==''  || this.natinalIdFront=='' ||
-    !this.isTermsAndConditionChkd.value){
+    if(this.paymentinfo.invalid || this.natinalIdback==''  || this.natinalIdFront==''){
+      return false;
+    }
+    if(eventName=='submit' && !this.isTermsAndConditionChkd.value){
       return false;
     }
     let profile;

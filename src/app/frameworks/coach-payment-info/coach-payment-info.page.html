@@ -99,9 +99,9 @@
                   <select class="form-control coach_fc_01" formControlName="PerSessionFee_Cur">
                     <option>INR</option>
                     <option>USD</option>
-                    <option>Option two</option>
+                    <!-- <option>Option two</option>
                     <option>Option three</option>
-                    <option>Option four</option>
+                    <option>Option four</option> -->
                   </select>
                 </div>
                 <div class="col-md-10 col-sm-10 col-xs-9">
@@ -229,7 +229,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   <button type="submit"  (click)="submitForm('saveForLater')"
                   [disabled]="paymentinfo.invalid || natinalIdFront === undefined ||
-                  natinalIdFront=='' || natinalIdback === undefined || natinalIdback==''  || !isTermsAndConditionChkd"
+                  natinalIdFront=='' || natinalIdback === undefined || natinalIdback==''"
                   class="btn btn-warning btn_save_later w100">
                     Save for Later
                   </button>  

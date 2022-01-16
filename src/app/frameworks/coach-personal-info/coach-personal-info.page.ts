@@ -42,7 +42,7 @@ export class CoachPersonalInfoPage implements OnInit {
 
   initialForms() {
     this.personalInfo = this.formbuilder.group({
-      Title: ['', [Validators.required]],
+      Title: ['Mr.', [Validators.required]],
       Name: ['', [Validators.required]],
       Gender: ['male', [Validators.required]],
       Email: ['', [Validators.required, Validators.email]],
