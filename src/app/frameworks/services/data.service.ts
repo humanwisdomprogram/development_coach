@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { CoachAppointmentHistroy } from "../coach-model/coach-appointment-history";
 import { CoachInfo } from "../coach-model/coach-info";
 
 
@@ -11,6 +12,7 @@ export class DataService {
     public professionalInfo = new BehaviorSubject<any>({});
     public coachInfo:CoachInfo;
     public userId:number=0;
+    public appointmentHistory:CoachAppointmentHistroy[];
     getLanguageList(){
       return  [
             {"code":"ab","name":"Abkhaz","nativeName":"аҧсуа"},
@@ -227,5 +229,54 @@ export class DataService {
       Title:''       
 
      } as CoachInfo;
+    }
+
+    IntializeCoachAppointmentHistroy(){
+      return {
+             BookingID:'',
+             Date:'',
+             EndTime:'',
+             FName:'',
+             LName:'',
+             PerSessionFee:'',
+             PerSessionFee_Curr:'',
+             StartTime:'',
+             ETime:'',
+             STime:''
+      } as CoachAppointmentHistroy;
+    }
+    getData(){
+     return [
+        {
+            "FName": "Human",
+            "LName": "Wisdom",
+            "Date": "1/20/2022 12:00:00 AM",
+            "StartTime": "1/13/2022 10:00:00 AM",
+            "EndTime": "1/13/2022 10:30:00 AM",
+            "BookingID": "1",
+            "PerSessionFee": "240",
+            "PerSessionFee_Curr": "USD"
+        },
+        {
+            "FName": "Human",
+            "LName": "Wisdom",
+            "Date": "1/20/2022 12:00:00 AM",
+            "StartTime": "1/13/2022 10:30:00 AM",
+            "EndTime": "1/13/2022 11:00:00 AM",
+            "BookingID": "2",
+            "PerSessionFee": "240",
+            "PerSessionFee_Curr": "USD"
+        },
+        {
+          "FName": "Pavish",
+          "LName": "Jain",
+          "Date": "1/22/2022 12:00:00 AM",
+          "StartTime": "1/13/2022 10:30:00 AM",
+          "EndTime": "1/13/2022 11:00:00 AM",
+          "BookingID": "2",
+          "PerSessionFee": "240",
+          "PerSessionFee_Curr": "USD"
+      },
+    ]
     }
 }
