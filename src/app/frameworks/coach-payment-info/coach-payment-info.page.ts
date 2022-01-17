@@ -105,6 +105,7 @@ export class CoachPaymentInfoPage implements OnInit {
     this.dataservice.coachInfo=Object.assign(this.dataservice.coachInfo,obj);
     this.dataservice.coachInfo.NationalID_Back=this.natinalIdback;
     this.dataservice.coachInfo.NationalID_Front=this.natinalIdFront;
+    
     this.apiservice.register( this.dataservice.coachInfo).subscribe((res) => {
       if(res=="1"){
         if(eventName=='submit'){
