@@ -124,6 +124,10 @@ export class CoachProfessionalInfoPage implements OnInit {
     let country=this.countries.filter(x=>x.name==$event.target.value)[0];
    this.city.push(City.getCitiesOfCountry(country.code));
   }
+  changeCountry($event:any, i:number){
+    let country=this.countries.filter(x=>x.name==$event)[0];
+  return City.getCitiesOfCountry(country.code);
+  }
 
   handleFileInput(files, text) {
     let file = files.target.files[0];
