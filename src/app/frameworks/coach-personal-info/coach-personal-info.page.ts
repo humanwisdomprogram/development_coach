@@ -88,7 +88,7 @@ export class CoachPersonalInfoPage implements OnInit {
   }
 
   GetCoachDetails() {
-    this.apiservice.getCoachDetails(879).subscribe(res => {
+    this.apiservice.getCoachDetails(this.dataservice.userId).subscribe(res => {
       this.dataservice.coachInfo = res;
       if (res != null) {
         this.SetPersonalFormControlValue(res);
@@ -202,7 +202,6 @@ export class CoachPersonalInfoPage implements OnInit {
   this.personalInfo.patchValue({
     'Coach_Languages': this.dataservice.coachInfo.Coach_Languages
   })
-  
     this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.personalInfo.value);
    // this.dataservice.coachInfo.Coach_Languages = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
     localStorage.setItem('coachInfo', JSON.stringify(this.dataservice.coachInfo));

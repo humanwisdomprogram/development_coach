@@ -165,7 +165,7 @@ export class CoachProfessionalInfoPage implements OnInit {
     }
   
     GetCoachDetails() {
-      this.apiService.getCoachDetails(879).subscribe(res => {
+      this.apiService.getCoachDetails(this.dataservice.userId).subscribe(res => {
         this.dataservice.coachInfo = res;
         if (res != null) {
           this.setProfessionalInfoFormControl(res);
