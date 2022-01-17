@@ -115,7 +115,7 @@ export class CoachPersonalInfoPage implements OnInit {
         Phonecode: "+91",
         Code: ""
       });
-      this.profilepic = 'data:image/jpg;base64,' + res.ProfilePic;
+      this.profilepic = 'https://humanwisdoms3.s3.eu-west-2.amazonaws.com/assets/images/tiles/' + res.ProfilePic;
       this.changeCity(res.Country)
       this.SetPersonalInfoObservableData();
   }
