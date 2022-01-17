@@ -27,16 +27,17 @@ export class CoachProfessionalInfoPage implements OnInit {
   }
 
   ngOnInit() {
-    this.InitializeCoachInfo();
+    
     this.SetCountriesData();
     this.countries=Country.getAllCountries().map(o => new Object({name: o.name, code: o.isoCode,phonecode:o.phonecode}));
     this.professionalInfo = this.formbuilder.group({
       qualification: this.formbuilder.array([this.createqualification(0)]),
-      Coach_WorkExp: this.formbuilder.array([this.createqualification(1)]),
-      certificate: this.formbuilder.array([this.createqualification(2)]),
+      Coach_WorkExp: this.formbuilder.array([]),
+      certificate: this.formbuilder.array([]),
       link: this.formbuilder.array([this.createqualification(3)]),
       Coach_Specializations: ['', [Validators.required]]
-    })
+    });
+    this.InitializeCoachInfo();
   }
 
   SetCountriesData(){
@@ -173,20 +174,49 @@ export class CoachProfessionalInfoPage implements OnInit {
       });
     }
 
+    buildOrderItemsForm(item): FormGroup {
+      this.city.push(City.getCitiesOfCountry(item.Country));
+      return this.formbuilder.group({
+        InstituteName: item.InstituteName,
+        Country: item.Country,
+        City: item.City,
+        From_Year: item.From_Year,
+        From_Month: item.From_Month,
+        To_Year: item.To_Year,
+        To_Month: item.To_Month,
+        IsCurrent: item.IsCurrent,
+        
+      })
+    }
+
+    certificatesUpdate(item, i): FormGroup {
+      return this.formbuilder.group({ "CertificationName": item.CertificationName, "Certificates": item.Certificates })
+    }
 
 
   setProfessionalInfoFormControl(res:CoachInfo){
+    
+    const orderItemsArray = this.professionalInfo.get('Coach_WorkExp') as FormArray;
+   const certificate = this.professionalInfo.get('certificate') as FormArray;
+    res.Coach_WorkExp.forEach(item => {
+      orderItemsArray.push(this.buildOrderItemsForm(item))
+    });
+    res.Coach_Certificates.forEach((item, i) => {
+      certificate.push(this.certificatesUpdate(item, i));     
+    });
     // this.professionalInfo.patchValue(
     //   {
-    //     InstituteName:res.,
-    //     City: ['', [Validators.required]],
-    //     Country: ['', [Validators.required]],
-    //     From_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
-    //     From_Month: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
-    //     To_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
-    //     To_Month: ['',  [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
-    //     IsCurrent: [false]
-    //   });
+    //     Coach_WorkExp: res.Coach_WorkExp
+    // //     InstituteName:res.,
+    // //     City: ['', [Validators.required]],
+    // //     Country: ['', [Validators.required]],
+    // //     From_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
+    // //     From_Month: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
+    // //     To_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
+    // //     To_Month: ['',  [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
+    // //     IsCurrent: [false]
+    // });
+
   }
 
   saveForLater(){

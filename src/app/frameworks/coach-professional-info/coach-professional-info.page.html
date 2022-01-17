@@ -76,13 +76,15 @@
 
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  <select class="form-control coach_fc_01" formControlName="Coach_Specializations">
+                  <!-- <select class="form-control coach_fc_01" formControlName="Coach_Specializations">
                     <option>Expertise (check all that apply)</option>
                     <option>Option one</option>
                     <option>Option two</option>
                     <option>Option three</option>
                     <option>Option four</option>
-                  </select>
+                  </select> -->
+                  <input type="text" required="required" formControlName="Coach_Specializations" class="form-control coach_fc_01"
+                  placeholder="Expertise">
                 </div>
                 <span *ngIf="!professionalInfo.get('Coach_Specializations')?.valid && professionalInfo.get('Coach_Specializations')?.touched">
                   Expertise is Required
@@ -99,7 +101,7 @@
                 </div>
               </div>
               <div formArrayName="Coach_WorkExp" *ngFor="let item of professionalInfo.controls['Coach_WorkExp']?.controls; let i = index">
-                <div [formGroupName]="i">
+                <div [formArrayName]="i">
                   <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <input type="text" required="required" formControlName="InstituteName" class="coach_fc_01"
@@ -119,7 +121,7 @@
                         class="select2_group form-control coach_fc_01" 
                         formControlName="City">
                         <option>City</option>
-                        <option *ngFor="let c of city[i]" [value]="c.name" >{{c.name}}</option>
+                        <option *ngFor="let c of city[i]" [value]="'c.name'" >{{c.name}}</option>
                         
                       </select>
                       <span *ngIf="!professionalInfo?.get('Coach_WorkExp')?.controls[i]?.get('City')?.valid && professionalInfo?.get('Coach_WorkExp')?.controls[i]?.get('City')?.touched">
@@ -254,8 +256,8 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 p0" formArrayName="certificate" *ngFor="let item of professionalInfo.controls['certificate'].controls; let i = index">
                   <div [formGroupName]="i">
                     <div class="col-md-8 col-sm-8 col-xs-8">
-                      <input type="text" id="{{i + 'text'}}" required="required" class="coach_fc_01" placeholder="Certification" readonly>
-                      <input type="file" id="{{i + 'file'}}" required="required" accept="application/pdf" 
+                      <input type="text" id="{{i + 'text'}}" [value]="professionalInfo.get('certificate').controls[i].get('CertificationName').value" required="required" class="coach_fc_01" placeholder="Certification"  readonly>
+                      <input type="file" id="{{i + 'file'}}" required="required" accept="application/pdf"
                        class="coach_fc_01" placeholder="Certification" (change)="handleFileInput($event, i + 'text')" style="visibility: hidden; width: 0px; height: 0px;">
                       
                     </div>
