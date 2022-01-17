@@ -10,4 +10,5 @@ export interface CoachAppointmentHistroy {
     STime:              string;
     ETime:              string;
     UserId:             string;
+    SumOfSession:        number;
 }

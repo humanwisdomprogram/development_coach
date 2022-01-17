@@ -1,3 +1,4 @@
+import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoachAppointmentHistroy } from '../coach-model/coach-appointment-history';
@@ -8,6 +9,7 @@ import { DataService } from '../services/data.service';
   selector: 'app-coach-history-patient-name',
   templateUrl: './coach-history-patient-name.page.html',
   styleUrls: ['./coach-history-patient-name.page.scss'],
+  providers:[DecimalPipe]
 })
 export class CoachHistoryPatientNamePage implements OnInit {
   appointmentHistoryList:CoachAppointmentHistroy[]=[];
@@ -15,7 +17,8 @@ export class CoachHistoryPatientNamePage implements OnInit {
   constructor(private dataService:DataService,
 
     private apiService:ApiService,
-    private router:Router) { }
+    private router:Router,
+    private currencyPipe:DecimalPipe) { }
 
 
   ngOnInit() {
@@ -37,6 +40,15 @@ export class CoachHistoryPatientNamePage implements OnInit {
    });
   }
 
+  ChangeHistory($event){
+    if($event.target.value=='Revenue'){
+     this.router.navigate(['frameworks/coach-history-revenue'])
+    }
+    if($event.target.value=='Date'){
+      this.router.navigate(['frameworks/coach-history-date'])
+     }
+  }
+
   GetUserName(userId){
     let history= this.appointmentHistoryList.filter(x=>x.UserId==userId);
     let count=history.length;
@@ -44,6 +56,17 @@ export class CoachHistoryPatientNamePage implements OnInit {
   }
 
   GetRevenueCount(userId){
-    return  this.appointmentHistoryList.filter(x=>x.PerSessionFee==userId);
+    let sum=0;
+    var appList=  this.appointmentHistoryList.filter(x=>x.UserId==userId)
+    appList.map(x=>+x.PerSessionFee).forEach(element => {
+    sum+=element;
+    });
+    return appList[0].PerSessionFee_Curr +' ' + this.currencyPipe.transform(sum,'1.0-0');
+  }
+  GetFilteredAppointmentList(userId){
+    return  this.appointmentHistoryList.filter(x=>x.UserId==userId);
+  }
+  goBack() {
+    this.router.navigate(['frameworks/coach-history-date'])
   }
 }

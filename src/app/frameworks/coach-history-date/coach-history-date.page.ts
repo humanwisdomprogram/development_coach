@@ -37,6 +37,9 @@ export class CoachHistoryDatePage implements OnInit {
    if($event.target.value=='Patient'){
     this.router.navigate(['frameworks/coach-history-patient-name'])
    }
+   if($event.target.value=='Revenue'){
+    this.router.navigate(['frameworks/coach-history-revenue'])
+   }
  }
 GroupAppointmentByDate(){
   this.appointmentHistoryList.forEach(element => {

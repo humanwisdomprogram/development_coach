@@ -53,7 +53,7 @@
                   </h6>
                 </div> 
                 <div class="col-md-5 col-sm-5 col-xs-5 year_month">
-                  <select class="form-control coach_fc_02">
+                  <select class="form-control coach_fc_02" (change)="ChangeHistory($event)" >
                     <option>Patient</option>
                     <option>Date</option>
                     <option>Revenue</option>
@@ -70,7 +70,7 @@
                   <div class="panel panel-default coach_accordion">
                     <div class="panel-heading">
                       <h4 class="panel-title">                        
-                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#a1"> 
+                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#{{userId}}"> 
                           <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12 p0 flex_ai">
                               <div class="col-md-8 col-sm-8 col-xs-8 p0">
@@ -88,51 +88,24 @@
                         </a>
                       </h4>
                     </div>
-                    <div id="a1" class="panel-collapse collapse">
-                      <div class="panel-body">
-
+                    <div id="{{userId}}" class="panel-collapse collapse" >
+                      <div class="panel-body" >
+                        <ng-container *ngFor="let item of GetFilteredAppointmentList(userId); let i = index;">
                         <div class="row flex_ai">
                           <div class="col-md-8 col-sm-8 col-xs-8">
                             <h6 class="txt70 mtb0px">
-                              22 June, 4-5 PM IST
+                              {{ item.Date | date :'mediumDate'}}   {{item.StartTime | date:'shortTime'}} -  {{item.EndTime | date:'shortTime'}}  MST
                             </h6>                            
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-4">
                             <h6 class="txt143 mtb0px tright">
-                              USD 100
+                             {{item.PerSessionFee_Curr}}  {{item.PerSessionFee  | number : '1.0-0'}} 
                             </h6>
                           </div>
                         </div> 
-
                         <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              15 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              08 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
+                       </ng-container>
+                     
 
                       </div>
                     </div>

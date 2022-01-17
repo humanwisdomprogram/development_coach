@@ -242,7 +242,8 @@ export class DataService {
              PerSessionFee_Curr:'',
              StartTime:'',
              ETime:'',
-             STime:''
+             STime:'',
+            SumOfSession:0
       } as CoachAppointmentHistroy;
     }
     getData(){
@@ -256,7 +257,8 @@ export class DataService {
             "EndTime": "1/13/2022 10:30:00 AM",
             "BookingID": "1",
             "PerSessionFee": "240",
-            "PerSessionFee_Curr": "USD"
+            "PerSessionFee_Curr": "USD",
+            "SumOfSession":0
         },
         {
             "UserId":"891",
@@ -267,7 +269,8 @@ export class DataService {
             "EndTime": "1/13/2022 11:00:00 AM",
             "BookingID": "2",
             "PerSessionFee": "240",
-            "PerSessionFee_Curr": "USD"
+            "PerSessionFee_Curr": "USD",
+            "SumOfSession":0
         },
         {
           "UserId":"879",
@@ -278,8 +281,45 @@ export class DataService {
           "EndTime": "1/13/2022 11:00:00 AM",
           "BookingID": "2",
           "PerSessionFee": "240",
-          "PerSessionFee_Curr": "USD"
+          "PerSessionFee_Curr": "USD",
+          "SumOfSession":0
       },
+      {
+        "UserId":"879",
+        "FName": "Pavish",
+        "LName": "Jain",
+        "Date": "1/14/2022 12:00:00 AM",
+        "StartTime": "1/13/2022 10:30:00 AM",
+        "EndTime": "1/13/2022 11:00:00 AM",
+        "BookingID": "7",
+        "PerSessionFee": "240",
+        "PerSessionFee_Curr": "USD",
+        "SumOfSession":0
+    },
+    {
+      "UserId":"880",
+      "FName": "Test",
+      "LName": "User",
+      "Date": "1/14/2022 12:00:00 AM",
+      "StartTime": "1/13/2022 10:30:00 AM",
+      "EndTime": "1/13/2022 11:00:00 AM",
+      "BookingID": "10",
+      "PerSessionFee": "1000",
+      "PerSessionFee_Curr": "USD",
+      "SumOfSession":0
+  },
+    {
+      "UserId":"879",
+      "FName": "Pavish",
+      "LName": "Jain",
+      "Date": "1/1/2022 12:00:00 AM",
+      "StartTime": "1/13/2022 10:30:00 AM",
+      "EndTime": "1/13/2022 11:00:00 AM",
+      "BookingID": "5",
+      "PerSessionFee": "240",
+      "PerSessionFee_Curr": "USD",
+      "SumOfSession":0
+  },
     ]
     }
 }
