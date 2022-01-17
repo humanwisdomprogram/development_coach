@@ -9,4 +9,5 @@ export interface CoachAppointmentHistroy {
     PerSessionFee_Curr: string;
     STime:              string;
     ETime:              string;
+    UserId:             string;
 }

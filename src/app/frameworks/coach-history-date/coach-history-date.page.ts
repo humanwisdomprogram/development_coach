@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CoachAppointmentHistroy } from '../coach-model/coach-appointment-history';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
@@ -13,7 +14,8 @@ export class CoachHistoryDatePage implements OnInit {
    data:any;
    Dates:Date[]=[];
   constructor(private datService:DataService,
-   private apiService:ApiService) { }
+   private apiService:ApiService,
+   private router:Router) { }
 
   ngOnInit() {
     this.getAppointmentHistory();
@@ -28,8 +30,14 @@ export class CoachHistoryDatePage implements OnInit {
  }
 
 
-
-
+ getAppCount(userId:any){
+   return this.appointmentHistoryList.filter(x=>x.UserId==userId).length;
+ }
+ ChangeHistory($event){
+   if($event.target.value=='Patient'){
+    this.router.navigate(['frameworks/coach-history-patient-name'])
+   }
+ }
 GroupAppointmentByDate(){
   this.appointmentHistoryList.forEach(element => {
     if(this.Dates.length==0 || 

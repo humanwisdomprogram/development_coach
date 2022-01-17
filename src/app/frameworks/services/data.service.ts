@@ -248,6 +248,7 @@ export class DataService {
     getData(){
      return [
         {
+            "UserId":"891",
             "FName": "Human",
             "LName": "Wisdom",
             "Date": "1/20/2022 12:00:00 AM",
@@ -258,6 +259,7 @@ export class DataService {
             "PerSessionFee_Curr": "USD"
         },
         {
+            "UserId":"891",
             "FName": "Human",
             "LName": "Wisdom",
             "Date": "1/20/2022 12:00:00 AM",
@@ -268,6 +270,7 @@ export class DataService {
             "PerSessionFee_Curr": "USD"
         },
         {
+          "UserId":"879",
           "FName": "Pavish",
           "LName": "Jain",
           "Date": "1/22/2022 12:00:00 AM",

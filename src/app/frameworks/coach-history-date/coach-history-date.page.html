@@ -53,7 +53,7 @@
                   </h6>
                 </div> 
                 <div class="col-md-5 col-sm-5 col-xs-5 year_month">
-                  <select class="form-control coach_fc_02">
+                  <select class="form-control coach_fc_02" (change)="ChangeHistory($event)">
                     <option>Date</option>
                     <option>Patient</option>
                     <option>Revenue</option>
@@ -78,7 +78,7 @@
                 
                   <h6 class="txt167 mt0px mb5px">
                     <!-- Helen Boothman (10) -->
-                    {{c.FName}}  {{c.LName}}
+                    {{c.FName}}  {{c.LName}} ({{getAppCount(c.UserId)}})
                   </h6>
                   <h6 class="txt119 mtb0px">
                     {{c.StartTime | date:'shortTime'}} -  {{c.EndTime | date:'shortTime'}} 
