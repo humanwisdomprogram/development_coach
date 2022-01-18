@@ -152,9 +152,14 @@ export class CoachProfessionalInfoPage implements OnInit {
     obj['Coach_Qualifications'] = this.professionalInfo.value['qualification'].map((d) => d['name']);
     delete obj['link']
     delete obj['qualification']
+
     this.dataservice.professionalInfo.next(obj)
-    this.dataservice.coachInfo=Object.assign(this.dataservice.coachInfo,this.professionalInfo.value);
-    this.router.navigate(['frameworks/coach-payment-info'])
+    this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.professionalInfo.value);
+    // this.dataservice.coachInfo.Coach_Languages = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
+     localStorage.setItem('coachInfo', JSON.stringify(this.dataservice.coachInfo));
+     this.router.navigate(['frameworks/coach-payment-info'])
+    // this.dataservice.coachInfo=Object.assign(this.dataservice.coachInfo,this.professionalInfo.value);
+    // this.router.navigate(['frameworks/coach-payment-info'])
   }
 
   goBack() {
