@@ -150,6 +150,7 @@ export class CoachProfessionalInfoPage implements OnInit {
     obj['Coach_Certificates'] = this.certificate;
     obj['Coach_Websites'] = this.professionalInfo.value['link'].map((d) => d['name']);
     obj['Coach_Qualifications'] = this.professionalInfo.value['qualification'].map((d) => d['name']);
+    obj['Coach_Specializations'] = this.professionalInfo.value['Coach_Specializations'];
     delete obj['link']
     delete obj['qualification']
 
@@ -168,6 +169,7 @@ export class CoachProfessionalInfoPage implements OnInit {
     this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.professionalInfo.value);
     this.dataservice.coachInfo.Id = +localStorage.getItem('userId');
     this.dataservice.coachInfo.Coach_Certificates = this.certificate;
+    this.dataservice.coachInfo.Coach_Specializations = this.professionalInfo.value['Coach_Specializations'];
     this.dataservice.coachInfo.Coach_Websites =  this.professionalInfo.value['link'].map((d) => d['name']);
     this.dataservice.coachInfo.Coach_Qualifications =  this.professionalInfo.value['qualification'].map((d) => d['name']);
     delete obj['link']
