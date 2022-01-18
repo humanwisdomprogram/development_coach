@@ -97,13 +97,11 @@ export class CoachPersonalInfoPage implements OnInit {
   }
 
   SetPersonalFormControlValue(res: CoachInfo) {
-    debugger
     this.personalInfo.setValue(
       {
-        
         Title: res.Title,
         Name: res.Name,
-        Gender: res.Gender,
+        Gender: res.Gender.toLowerCase(),
         Email: res.Email,
         Address: res.Address,
         City: res.City,
@@ -191,19 +189,15 @@ export class CoachPersonalInfoPage implements OnInit {
     this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.personalInfo.value);
     this.dataservice.coachInfo.Id = +localStorage.getItem('userId');
     this.dataservice.coachInfo.Coach_Languages = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
-    this.SetPersonalInfoObservableData();
     this.apiservice.register(this.dataservice.coachInfo).subscribe(res => {
-      console.log(res);
+      console.log("Sucessfully saved");
+      localStorage.setItem('coachInfo', JSON.stringify(this.dataservice.coachInfo));
     });
   }
   //Next
   nextRoute() {
-  // this.SetPersonalInfoObservableData();
-  this.personalInfo.patchValue({
-    'Coach_Languages': this.dataservice.coachInfo.Coach_Languages
-  })
+    this.dataservice.coachInfo.Coach_Languages = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
     this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.personalInfo.value);
-   // this.dataservice.coachInfo.Coach_Languages = this.personalInfo.get('Coach_Languages').value.map(x => x.item_id);
     localStorage.setItem('coachInfo', JSON.stringify(this.dataservice.coachInfo));
     this.router.navigate(['frameworks/coach-professional-info'])
   }

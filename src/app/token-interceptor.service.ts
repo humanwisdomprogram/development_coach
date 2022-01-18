@@ -17,13 +17,11 @@ export class TokenInterceptorService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    debugger
     let tokenizedReq=req.clone ({
       setHeaders: {
         Authorization: `Bearer ${this.token}`
       }
     })
-    debugger
     return next.handle(tokenizedReq).pipe(
       retry(3)
     )

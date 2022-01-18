@@ -6,6 +6,7 @@ import { Country, State, City }  from 'country-state-city';
 import { initialize } from '@ionic/core';
 import { CoachInfo } from '../coach-model/coach-info';
 import { ApiService } from '../services/api.service';
+import { iif } from 'rxjs';
 
 @Component({
   selector: 'app-coach-professional-info',
@@ -100,6 +101,9 @@ export class CoachProfessionalInfoPage implements OnInit {
 
   RemoveCertificate(i) {
     (this.professionalInfo.controls['certificate'] as FormArray).removeAt(i);
+    if(this.certificate.length>0){
+     this.certificate.splice(i,1);
+   }
   }
 
   isCurrentWorking(e, i) {
@@ -135,7 +139,7 @@ export class CoachProfessionalInfoPage implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = (e: any) => {
       const res: string = e.target.result.split(',')[1];;
-      this.certificate.push({ "CertificationName": file['name'], "Certificates": res });
+      this.certificate.push({ "CertificationName": file['name'], "Certificates": res,"CertificationPath":''});
       (<HTMLInputElement>document.getElementById(text)).value = file['name']
     };
   }
@@ -165,18 +169,19 @@ export class CoachProfessionalInfoPage implements OnInit {
 
   saveForLater() {
     let obj = this.professionalInfo.value;
-    delete obj['certificate']
+    //delete obj['certificate']
     this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.professionalInfo.value);
     this.dataservice.coachInfo.Id = +localStorage.getItem('userId');
     this.dataservice.coachInfo.Coach_Certificates = this.certificate;
-    this.dataservice.coachInfo.Coach_Specializations = this.professionalInfo.value['Coach_Specializations'];
+    this.dataservice.coachInfo.Coach_Specializations = [this.professionalInfo.value['Coach_Specializations']];
     this.dataservice.coachInfo.Coach_Websites =  this.professionalInfo.value['link'].map((d) => d['name']);
     this.dataservice.coachInfo.Coach_Qualifications =  this.professionalInfo.value['qualification'].map((d) => d['name']);
-    delete obj['link']
-    delete obj['qualification']
+    //delete obj['link']
+    //delete obj['qualification']
     this.dataservice.professionalInfo.next(obj)
     this.apiService.register(this.dataservice.coachInfo).subscribe(res => {
-      console.log(res);
+      console.log("Successfully Saved");
+      localStorage.setItem('coachInfo', JSON.stringify(this.dataservice.coachInfo));
     });
   }
 
@@ -273,7 +278,10 @@ export class CoachProfessionalInfoPage implements OnInit {
       })
     )
   }
+   
   if(res.Coach_Certificates.length > 0 ) {
+    this.certificate=[];
+    this.certificate=res.Coach_Certificates;
     res.Coach_Certificates.forEach((item, i) => {
       certificate.push(this.certificatesUpdate(item, i));     
     });
