@@ -126,7 +126,7 @@ export class CoachProfessionalInfoPage implements OnInit {
   }
   changeCountry($event:any, i:number){
     let country=this.countries.filter(x=>x.name==$event)[0];
-  return City.getCitiesOfCountry(country.code);
+  return City.getCitiesOfCountry(country?.code ? country?.code : '');
   }
 
   handleFileInput(files, text) {
@@ -202,12 +202,33 @@ export class CoachProfessionalInfoPage implements OnInit {
     
     const orderItemsArray = this.professionalInfo.get('Coach_WorkExp') as FormArray;
    const certificate = this.professionalInfo.get('certificate') as FormArray;
+   if(res.Coach_WorkExp.length > 0){
     res.Coach_WorkExp.forEach(item => {
       orderItemsArray.push(this.buildOrderItemsForm(item))
     });
+  } else {
+    orderItemsArray.push(
+      this.formbuilder.group({
+        InstituteName: '',
+        Country: '',
+        City: '',      
+        From_Year: '',
+        From_Month: '',
+        To_Year: '',
+        To_Month: '',
+        IsCurrent: false   
+      })
+    )
+  }
+  if(res.Coach_Certificates.length > 0 ) {
     res.Coach_Certificates.forEach((item, i) => {
       certificate.push(this.certificatesUpdate(item, i));     
     });
+  } else {
+    certificate.push(this.formbuilder.group({
+      name: ''
+    }));
+  }
     // this.professionalInfo.patchValue(
     //   {
     //     Coach_WorkExp: res.Coach_WorkExp
