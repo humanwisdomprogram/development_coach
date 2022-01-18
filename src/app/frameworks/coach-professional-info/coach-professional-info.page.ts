@@ -32,10 +32,10 @@ export class CoachProfessionalInfoPage implements OnInit {
     this.SetCountriesData();
     this.countries=Country.getAllCountries().map(o => new Object({name: o.name, code: o.isoCode,phonecode:o.phonecode}));
     this.professionalInfo = this.formbuilder.group({
-      qualification: this.formbuilder.array([]),
+      Coach_Qualifications: this.formbuilder.array([]),
       Coach_WorkExp: this.formbuilder.array([]),
-      certificate: this.formbuilder.array([]),
-      link: this.formbuilder.array([]),
+      Coach_Certificates: this.formbuilder.array([]),
+      Coach_Websites: this.formbuilder.array([]),
       Coach_Specializations: ['', [Validators.required]]
     });
     this.InitializeCoachInfo();
@@ -75,20 +75,20 @@ export class CoachProfessionalInfoPage implements OnInit {
 
   addNext(value) {
     if (value === 0) {
-      (this.professionalInfo.controls['qualification'] as FormArray).push(this.createqualification(value))
+      (this.professionalInfo.controls['Coach_Qualifications'] as FormArray).push(this.createqualification(value))
     } else if (value === 1) {
       (this.professionalInfo.controls['Coach_WorkExp'] as FormArray).push(this.createqualification(value))
     } else if (value === 2) {
-      (this.professionalInfo.controls['certificate'] as FormArray).push(this.createqualification(value))
+      (this.professionalInfo.controls['Coach_Certificates'] as FormArray).push(this.createqualification(value))
     } else if (value === 3) {
-      (this.professionalInfo.controls['link'] as FormArray).push(this.createqualification(value))
+      (this.professionalInfo.controls['Coach_Websites'] as FormArray).push(this.createqualification(value))
     }
 
     console.log('QUalificationValues', this.professionalInfo?.controls['Coach_WorkExp'] )
   }
 
   RemoveQUalification(i) {
-    (this.professionalInfo.controls['qualification'] as FormArray).removeAt(i);
+    (this.professionalInfo.controls['Coach_Qualifications'] as FormArray).removeAt(i);
   }
 
   RemoveExp(i) {
@@ -96,11 +96,11 @@ export class CoachProfessionalInfoPage implements OnInit {
   }
 
   RemoveLinks(i) {
-    (this.professionalInfo.controls['link'] as FormArray).removeAt(i);
+    (this.professionalInfo.controls['Coach_Websites'] as FormArray).removeAt(i);
   }
 
   RemoveCertificate(i) {
-    (this.professionalInfo.controls['certificate'] as FormArray).removeAt(i);
+    (this.professionalInfo.controls['Coach_Certificates'] as FormArray).removeAt(i);
     if(this.certificate.length>0){
      this.certificate.splice(i,1);
    }
@@ -150,13 +150,13 @@ export class CoachProfessionalInfoPage implements OnInit {
 
   nextRoute() {
     let obj = this.professionalInfo.value;
-    delete obj['certificate']
+    // delete obj['certificate']
     obj['Coach_Certificates'] = this.certificate;
-    obj['Coach_Websites'] = this.professionalInfo.value['link'].map((d) => d['name']);
-    obj['Coach_Qualifications'] = this.professionalInfo.value['qualification'].map((d) => d['name']);
+    obj['Coach_Websites'] = this.professionalInfo.value['Coach_Websites'].map((d) => d['name']);
+    obj['Coach_Qualifications'] = this.professionalInfo.value['Coach_Qualifications'].map((d) => d['name']);
     obj['Coach_Specializations'] = this.professionalInfo.value['Coach_Specializations'];
-    delete obj['link']
-    delete obj['qualification']
+    // delete obj['link']
+    // delete obj['qualification']
 
     this.dataservice.professionalInfo.next(obj)
     this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.professionalInfo.value);
@@ -174,8 +174,8 @@ export class CoachProfessionalInfoPage implements OnInit {
     this.dataservice.coachInfo.Id = +localStorage.getItem('userId');
     this.dataservice.coachInfo.Coach_Certificates = this.certificate;
     this.dataservice.coachInfo.Coach_Specializations = [this.professionalInfo.value['Coach_Specializations']];
-    this.dataservice.coachInfo.Coach_Websites =  this.professionalInfo.value['link'].map((d) => d['name']);
-    this.dataservice.coachInfo.Coach_Qualifications =  this.professionalInfo.value['qualification'].map((d) => d['name']);
+    this.dataservice.coachInfo.Coach_Websites =  this.professionalInfo.value['Coach_Websites'].map((d) => d['name']);
+    this.dataservice.coachInfo.Coach_Qualifications =  this.professionalInfo.value['Coach_Qualifications'].map((d) => d['name']);
     //delete obj['link']
     //delete obj['qualification']
     this.dataservice.professionalInfo.next(obj)
@@ -235,9 +235,9 @@ export class CoachProfessionalInfoPage implements OnInit {
   setProfessionalInfoFormControl(res:CoachInfo){
     
    const orderItemsArray = this.professionalInfo.get('Coach_WorkExp') as FormArray;
-   const certificate = this.professionalInfo.get('certificate') as FormArray;
-   const qualification = this.professionalInfo.get('qualification') as FormArray;
-   const link = this.professionalInfo.get('link') as FormArray;
+   const certificate = this.professionalInfo.get('Coach_Certificates') as FormArray;
+   const qualification = this.professionalInfo.get('Coach_Qualifications') as FormArray;
+   const link = this.professionalInfo.get('Coach_Websites') as FormArray;
    if(res.Coach_Qualifications.length > 0) {
     res.Coach_Qualifications.forEach(item => {
       qualification.push(this.qualificationUpdate(item))

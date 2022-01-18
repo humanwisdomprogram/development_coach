@@ -54,14 +54,14 @@
               <br>
 
               <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12" formArrayName="qualification"
-                  *ngFor="let item of professionalInfo.controls['qualification'].controls; let i = index">
+                <div class="col-md-12 col-sm-12 col-xs-12" formArrayName="Coach_Qualifications"
+                  *ngFor="let item of professionalInfo.controls['Coach_Qualifications'].controls; let i = index">
                   <div [formGroupName]="i">
                     <input type="text" formControlName="name" required="required" class="coach_fc_01"
                       placeholder="Qualification">
                       <button *ngIf="i > 0" (click)="RemoveQUalification(i)">X</button>
                   </div>
-                  <span *ngIf="!professionalInfo.get('qualification').controls[i]?.valid && professionalInfo.get('qualification').controls[i]?.touched">
+                  <span *ngIf="!professionalInfo.get('Coach_Qualifications').controls[i]?.valid && professionalInfo.get('Coach_Qualifications').controls[i]?.touched">
                     Qualification is Required
                   </span>
                 </div>
@@ -256,10 +256,10 @@
               <br>
 
               <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 p0" formArrayName="certificate" *ngFor="let item of professionalInfo.controls['certificate'].controls; let i = index">
+                <div class="col-md-12 col-sm-12 col-xs-12 p0" formArrayName="Coach_Certificates" *ngFor="let item of professionalInfo.controls['Coach_Certificates'].controls; let i = index">
                   <div [formGroupName]="i">
                     <div class="col-md-8 col-sm-8 col-xs-8">
-                      <input type="text" id="{{i + 'text'}}" [value]="professionalInfo.get('certificate').controls[i].get('CertificationName')?.value" required="required" class="coach_fc_01" placeholder="Certification"  readonly>
+                      <input type="text" id="{{i + 'text'}}" [value]="professionalInfo.get('Coach_Certificates').controls[i].get('CertificationName')?.value" required="required" class="coach_fc_01" placeholder="Certification"  readonly>
                       <input type="file" id="{{i + 'file'}}" required="required" accept="application/pdf"
                        class="coach_fc_01" placeholder="Certification" (change)="handleFileInput($event, i + 'text')" style="visibility: hidden; width: 0px; height: 0px;">
                       
@@ -294,13 +294,13 @@
               <br>
 
               <div class="row">
-                <div formArrayName="link" *ngFor="let item of professionalInfo.controls['link'].controls; let i = index">
+                <div formArrayName="Coach_Websites" *ngFor="let item of professionalInfo.controls['Coach_Websites'].controls; let i = index">
                   <div class="col-md-12 col-sm-12 col-xs-12" [formGroupName]="i">
                     <input type="text" formControlName="name" required class="coach_fc_01" placeholder="Website">
                   </div>
-                  <span *ngIf="!professionalInfo.get('link').controls[i].get('name')?.valid && professionalInfo.get('link').controls[i].get('name')?.touched">
-                    <div *ngIf="professionalInfo.get('link').controls[i].get('name')?.errors.required">Link is required.</div>
-                    <div *ngIf="professionalInfo.get('link').controls[i].get('name')?.errors.pattern">Link is Not valid .</div>
+                  <span *ngIf="!professionalInfo.get('Coach_Websites').controls[i].get('name')?.valid && professionalInfo.get('Coach_Websites').controls[i].get('name')?.touched">
+                    <div *ngIf="professionalInfo.get('Coach_Websites').controls[i].get('name')?.errors.required">Link is required.</div>
+                    <div *ngIf="professionalInfo.get('Coach_Websites').controls[i].get('name')?.errors.pattern">Link is Not valid .</div>
                   </span>
                   <button *ngIf="i > 0" (click)="RemoveLinks(i)">X</button>
                 </div>
