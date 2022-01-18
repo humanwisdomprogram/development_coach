@@ -162,6 +162,22 @@ export class CoachProfessionalInfoPage implements OnInit {
     // this.router.navigate(['frameworks/coach-payment-info'])
   }
 
+  saveForLater() {
+    let obj = this.professionalInfo.value;
+    delete obj['certificate']
+    this.dataservice.coachInfo = Object.assign(this.dataservice.coachInfo, this.professionalInfo.value);
+    this.dataservice.coachInfo.Id = +localStorage.getItem('userId');
+    this.dataservice.coachInfo.Coach_Certificates = this.certificate;
+    this.dataservice.coachInfo.Coach_Websites =  this.professionalInfo.value['link'].map((d) => d['name']);
+    this.dataservice.coachInfo.Coach_Qualifications =  this.professionalInfo.value['qualification'].map((d) => d['name']);
+    delete obj['link']
+    delete obj['qualification']
+    this.dataservice.professionalInfo.next(obj)
+    this.apiService.register(this.dataservice.coachInfo).subscribe(res => {
+      console.log(res);
+    });
+  }
+
   goBack() {
     this.router.navigate(['frameworks/coach-personal-info'])
   }
@@ -271,7 +287,4 @@ export class CoachProfessionalInfoPage implements OnInit {
 
   }
 
-  saveForLater(){
-    
-  }
 }
