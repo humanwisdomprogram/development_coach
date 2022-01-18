@@ -23,8 +23,8 @@ export class CoachPaymentInfoPage implements OnInit {
       Consult_StrtTime: ['', [Validators.required]],
       Consult_EndTime: ['', [Validators.required]],
       PerSessionFee: ['', [Validators.required]],
-      PerSessionFee_Cur: ['', [Validators.required]],
-      PayPallD: ['', [Validators.required]]
+      PerSessionFee_Curr: ['', [Validators.required]],
+      PayPalID: ['', [Validators.required]]
     })
    }
 
@@ -60,11 +60,11 @@ export class CoachPaymentInfoPage implements OnInit {
       Consult_StrtTime: coachInfo.Consult_StrtTime,
       Consult_EndTime:  coachInfo.Consult_EndTime,
       PerSessionFee: coachInfo.PerSessionFee,
-      PerSessionFee_Cur: coachInfo.PerSessionFee_Curr,
-      PayPallD: coachInfo.PayPalID
+      PerSessionFee_Curr: coachInfo.PerSessionFee_Curr,
+      PayPalID: coachInfo.PayPalID
     });
-    this.natinalIdFront=coachInfo.NationalID_Front,
-    this.natinalIdback=coachInfo.NationalID_Back
+    this.natinalIdFront=coachInfo.NationalID_FrontImgPath,
+    this.natinalIdback=coachInfo.NationalID_BackImgPath
   }
 
   handleFileInput(files, value) {
@@ -103,9 +103,10 @@ export class CoachPaymentInfoPage implements OnInit {
     let obj = this.paymentinfo.value;
 
     this.dataservice.coachInfo=Object.assign(this.dataservice.coachInfo,obj);
-    this.dataservice.coachInfo.NationalID_Back=this.natinalIdback;
-    this.dataservice.coachInfo.NationalID_Front=this.natinalIdFront;
-    
+    this.dataservice.coachInfo.NationalID_Back="";
+    this.dataservice.coachInfo.NationalID_Front="";
+    this.dataservice.coachInfo.NationalID_FrontImgPath=this.natinalIdFront;
+    this.dataservice.coachInfo.NationalID_BackImgPath=this.natinalIdback;
     this.apiservice.register( this.dataservice.coachInfo).subscribe((res) => {
       if(res=="1"){
         if(eventName=='submit'){

@@ -24,6 +24,8 @@ export interface CoachInfo {
     Coach_Languages:       string[];
     Coach_Websites:        string[];
     Coach_Qualifications:  string[];
+    NationalID_BackImgPath: string;
+    NationalID_FrontImgPath:string;
 }
 
 export interface CoachCertificate {

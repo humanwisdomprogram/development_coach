@@ -224,8 +224,9 @@ export class DataService {
       ProfilePic:'',
       Secondary_CTC:'',
       State:'',
-      Title:''       
-
+      Title:'', 
+      NationalID_BackImgPath:'',
+      NationalID_FrontImgPath:''
      } as CoachInfo;
     }
 }

@@ -205,7 +205,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="checkbox">
                         <label class="coach_check mt0px">
-                          <input type="checkbox" name="remember" formControlName="IsCurrent" [value]="'1'" (change)="isCurrentWorking($event, i)"/>
+                          <input type="checkbox" name="remember" formControlName="IsCurrent" [value]="professionalInfo.get('Coach_WorkExp')?.controls[i]?.get('IsCurrent')?.value=='1'? true : false " (change)="isCurrentWorking($event, i)"/>
                           <span class="">
                             <span class="txt65 pl0_3rem">
                               I currently work here
@@ -260,7 +260,7 @@
                   <div [formGroupName]="i">
                     <div class="col-md-8 col-sm-8 col-xs-8">
                       <input type="text" id="{{i + 'text'}}" [value]="professionalInfo.get('Coach_Certificates').controls[i].get('CertificationName')?.value" required="required" class="coach_fc_01" placeholder="Certification"  readonly>
-                      <input type="file" id="{{i + 'file'}}" required="required" accept="application/pdf"
+                      <input type="file" id="{{i + 'file'}}" required="required"
                        class="coach_fc_01" placeholder="Certification" (change)="handleFileInput($event, i + 'text')" style="visibility: hidden; width: 0px; height: 0px;">
                       
                     </div>
