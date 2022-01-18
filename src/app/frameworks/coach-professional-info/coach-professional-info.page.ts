@@ -31,10 +31,10 @@ export class CoachProfessionalInfoPage implements OnInit {
     this.SetCountriesData();
     this.countries=Country.getAllCountries().map(o => new Object({name: o.name, code: o.isoCode,phonecode:o.phonecode}));
     this.professionalInfo = this.formbuilder.group({
-      qualification: this.formbuilder.array([this.createqualification(0)]),
+      qualification: this.formbuilder.array([]),
       Coach_WorkExp: this.formbuilder.array([]),
       certificate: this.formbuilder.array([]),
-      link: this.formbuilder.array([this.createqualification(3)]),
+      link: this.formbuilder.array([]),
       Coach_Specializations: ['', [Validators.required]]
     });
     this.InitializeCoachInfo();
@@ -189,7 +189,6 @@ export class CoachProfessionalInfoPage implements OnInit {
         To_Year: item.To_Year,
         To_Month: item.To_Month,
         IsCurrent: item.IsCurrent,
-        
       })
     }
 
@@ -197,11 +196,42 @@ export class CoachProfessionalInfoPage implements OnInit {
       return this.formbuilder.group({ "CertificationName": item.CertificationName, "Certificates": item.Certificates })
     }
 
+    qualificationUpdate(item): FormGroup {
+      return this.formbuilder.group({ "name": item })
+    }
+    linkUpdate(item): FormGroup {
+      return this.formbuilder.group({ "name": item })
+    }
+
 
   setProfessionalInfoFormControl(res:CoachInfo){
     
-    const orderItemsArray = this.professionalInfo.get('Coach_WorkExp') as FormArray;
+   const orderItemsArray = this.professionalInfo.get('Coach_WorkExp') as FormArray;
    const certificate = this.professionalInfo.get('certificate') as FormArray;
+   const qualification = this.professionalInfo.get('qualification') as FormArray;
+   const link = this.professionalInfo.get('link') as FormArray;
+   if(res.Coach_Qualifications.length > 0) {
+    res.Coach_Qualifications.forEach(item => {
+      qualification.push(this.qualificationUpdate(item))
+    });
+   } else {
+
+    qualification.push(this.formbuilder.group({
+      name: ''
+    }));
+    
+   }
+   if(res.Coach_Websites.length > 0) {
+    res.Coach_Websites.forEach(item => {
+      link.push(this.linkUpdate(item))
+    });
+   } else {
+
+    link.push(this.formbuilder.group({
+      name: ''
+    }));
+    
+   }
    if(res.Coach_WorkExp.length > 0){
     res.Coach_WorkExp.forEach(item => {
       orderItemsArray.push(this.buildOrderItemsForm(item))
@@ -229,18 +259,10 @@ export class CoachProfessionalInfoPage implements OnInit {
       name: ''
     }));
   }
-    // this.professionalInfo.patchValue(
-    //   {
-    //     Coach_WorkExp: res.Coach_WorkExp
-    // //     InstituteName:res.,
-    // //     City: ['', [Validators.required]],
-    // //     Country: ['', [Validators.required]],
-    // //     From_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
-    // //     From_Month: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
-    // //     To_Year: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4)]],
-    // //     To_Month: ['',  [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
-    // //     IsCurrent: [false]
-    // });
+    this.professionalInfo.patchValue(
+      {
+        Coach_Specializations: res.Coach_Specializations.toString()
+    });
 
   }
 
