@@ -20,8 +20,8 @@ export class CoachPaymentInfoPage implements OnInit {
      private formbuilder: FormBuilder,
       private dataservice: DataService, private apiservice: ApiService) {
     this.paymentinfo = this.formbuilder.group({
-      Consult_StrtTime: ['', [Validators.required]],
-      Consult_EndTime: ['', [Validators.required]],
+      Consult_StrtTime: ['', [Validators.required, Validators.pattern("(([0-1]?[0-9])|(2[0-3])):[0-5][0-9]:[0-5][0-9]")]],
+      Consult_EndTime: ['', [Validators.required, Validators.pattern("(([0-1]?[0-9])|(2[0-3])):[0-5][0-9]:[0-5][0-9]")]],
       PerSessionFee: ['', [Validators.required]],
       PerSessionFee_Curr: ['', [Validators.required]],
       PayPalID: ['', [Validators.required]]

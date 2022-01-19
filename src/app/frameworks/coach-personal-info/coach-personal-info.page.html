@@ -200,7 +200,7 @@
                     </div>
                 <span *ngIf="!personalInfo.get('Primary_CTC')?.valid && personalInfo.get('Primary_CTC')?.touched">
                   <span *ngIf="personalInfo.get('Primary_CTC')?.errors.required">Primary CTC is required</span>  
-                  <span *ngIf="personalInfo.get('Primary_CTC')?.errors.pattern">Please, Enter 15 digit Mobile Number only.</span>  
+                  <span *ngIf="personalInfo.get('Primary_CTC')?.errors.pattern">Please, Enter minimum 10 and maximum 15 digit Mobile Number only.</span>  
                 </span>
               </div>
 
@@ -226,7 +226,7 @@
                 </div>
                 <span *ngIf="!personalInfo.get('Secondary_CTC')?.valid && personalInfo.get('Secondary_CTC')?.touched">
                   <span *ngIf="personalInfo.get('Secondary_CTC')?.errors.required"> Secondary CTC is required</span>  
-                  <span *ngIf="personalInfo.get('Secondary_CTC')?.errors.pattern">Please, Enter 15 digit Mobile Number only.</span>  
+                  <span *ngIf="personalInfo.get('Secondary_CTC')?.errors.pattern">Please, Enter minimum 10 and maximum 15 digit Mobile Number only.</span>  
                 </span>
               </div>
 

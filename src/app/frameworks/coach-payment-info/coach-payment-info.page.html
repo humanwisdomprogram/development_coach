@@ -64,7 +64,11 @@
               <div class="row flex_ai">
                 <div class="col-md-2 col-sm-2 col-xs-3">
                   <input type="text" required="required" formControlName="Consult_StrtTime" class="coach_fc_01 tcenter"
-                    placeholder="00:00">
+                    placeholder="00:00:00">
+                    <span *ngIf="!paymentinfo.get('Consult_StrtTime')?.valid && paymentinfo.get('Consult_StrtTime')?.touched">
+                      <span *ngIf="paymentinfo.get('Consult_StrtTime')?.errors.required"> Start Time is required</span>  
+                      <span *ngIf="paymentinfo.get('Consult_StrtTime')?.errors.pattern">Value should not be greater than 23:59:59</span>  
+                    </span>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-1 p0 center_flex year_month">
                   <h4 class="txt145">
@@ -73,7 +77,11 @@
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-3 year_month">
                   <input type="text" required="required" formControlName="Consult_EndTime" class="coach_fc_01 tcenter"
-                    placeholder="00:00">
+                    placeholder="00:00:00">
+                    <span *ngIf="!paymentinfo.get('Consult_EndTime')?.valid && paymentinfo.get('Consult_EndTime')?.touched">
+                      <span *ngIf="paymentinfo.get('Consult_EndTime')?.errors.required"> End Time is required</span>  
+                      <span *ngIf="paymentinfo.get('Consult_EndTime')?.errors.pattern">Value should not be greater than 23:59:59</span>  
+                    </span>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-5">
                   <h6 class="txt129 mtb0px tleft">

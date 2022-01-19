@@ -50,8 +50,8 @@ export class CoachPersonalInfoPage implements OnInit {
       City: ['', [Validators.required]],
       Country: ['', [Validators.required]],
       State: ['', [Validators.required]],
-      Primary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{9}$")]],
-      Secondary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{11}$")]],
+      Primary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10,15}$")]],
+      Secondary_CTC: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10,15}$")]],
       Coach_Languages: ['', [Validators.required]],
       Code: ['', [Validators.required]],
       Phonecode: ['', [Validators.required]]

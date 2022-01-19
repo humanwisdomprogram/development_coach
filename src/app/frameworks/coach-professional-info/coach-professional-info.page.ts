@@ -1,6 +1,6 @@
 import { DataService } from './../services/data.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Country, State, City }  from 'country-state-city';
 import { initialize } from '@ionic/core';
@@ -208,17 +208,34 @@ export class CoachProfessionalInfoPage implements OnInit {
       });
     }
 
+    customValidator()
+    {
+      return (control:FormControl)=>
+      {
+        const form=control.parent
+        if (form)
+        {
+          const fromYear=form.get('From_Year');
+          const toYear=form.get('To_Year');
+          debugger
+          return fromYear?.value && toYear?.value && +toYear.value<+fromYear.value ? {error:'TO Should be graterthan From Year'}:null
+        }
+      }
+    }
+
+  
+
     buildOrderItemsForm(item): FormGroup {
       this.city.push(City.getCitiesOfCountry(item.Country));
       return this.formbuilder.group({
-        InstituteName: item.InstituteName,
-        Country: item.Country,
-        City: item.City,
-        From_Year: item.From_Year,
-        From_Month: item.From_Month,
-        To_Year: item.To_Year,
-        To_Month: item.To_Month,
-        IsCurrent: item.IsCurrent,
+        InstituteName: [item.InstituteName],
+        City: [item.City, [Validators.required]],
+        Country: [item.Country, [Validators.required]],
+        From_Year: [item.From_Year, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4), this.customValidator()]],
+        From_Month: [item.From_Month, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
+        To_Year: [item.To_Year, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(4), Validators.maxLength(4), this.customValidator()]],
+        To_Month: [item.To_Month,  [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(12), Validators.maxLength(2)]],
+        IsCurrent: [item.IsCurrent === '1' ? true : false]
       })
     }
 
@@ -230,7 +247,12 @@ export class CoachProfessionalInfoPage implements OnInit {
       return this.formbuilder.group({ "name": item })
     }
     linkUpdate(item): FormGroup {
-      return this.formbuilder.group({ "name": item })
+      const reg = "(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?";
+      
+      return this.formbuilder.group({ 
+        // "name": item
+        name: [item, [Validators.required, Validators.pattern(reg)]]
+       })
     }
 
 
