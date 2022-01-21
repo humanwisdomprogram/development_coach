@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { CoachCalendarPluginPageRoutingModule } from './coach-calendar-plugin-routing.module';
 
 import { CoachCalendarPluginPage } from './coach-calendar-plugin.page';
+import { DatetimerangepickerModule } from 'angular-datetimerangepicker';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    DatetimerangepickerModule,
     CoachCalendarPluginPageRoutingModule
   ],
   declarations: [CoachCalendarPluginPage]
