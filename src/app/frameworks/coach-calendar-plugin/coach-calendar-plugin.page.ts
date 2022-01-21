@@ -1,17 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 declare var $: any;
 @Component({
   selector: 'app-coach-calendar-plugin',
   templateUrl: './coach-calendar-plugin.page.html',
   styleUrls: ['./coach-calendar-plugin.page.scss'],
   styles: [`
-  .form-group.hidden {
-    width: 0;
-    margin: 0;
-    border: none;
-    padding: 0;
-  }
   .custom-day {
     text-align: center;
     padding: 0.185rem 0.25rem;
@@ -33,20 +27,26 @@ declare var $: any;
 })
 
 export class CoachCalendarPluginPage implements OnInit {
-  dateValue: Date;
   hoveredDate: NgbDate | null = null;
+  time: NgbTimeStruct = {hour: 13, minute: 30, second: 0};
+  hourStep = 1;
+  minuteStep = 15;
+  secondStep = 30
+  fromDate: NgbDate;
+  toDate: NgbDate | null = null;
 
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
-
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  constructor(calendar: NgbCalendar) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
 
   ngOnInit() {
+    $('#time').datetimepicker({  
+      format: 'HH:mm'  
+  });  
   }
  
+
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
