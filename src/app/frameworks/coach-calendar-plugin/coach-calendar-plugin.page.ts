@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CoachAvailabilityInfo, CoachAvailabilityInfoDetail } from '../coach-model/coach-availability-info';
 import { DataService } from '../services/data.service';
+import * as moment from 'moment';
+
 declare var $: any;
 @Component({
   selector: 'app-coach-calendar-plugin',
@@ -48,6 +50,8 @@ export class CoachCalendarPluginPage implements OnInit {
   coachAvailabilityInfo:CoachAvailabilityInfo
   coachAvailabilityInfoDetail:CoachAvailabilityInfoDetail;
   coachAvailabilityInfoDetailList:CoachAvailabilityInfoDetail[]=[];
+  nearestDate = null;
+  appointmentDates = '';
   constructor(calendar: NgbCalendar,
       private dataservice: DataService,
        private formbuilder: FormBuilder){    
@@ -73,14 +77,36 @@ export class CoachCalendarPluginPage implements OnInit {
     SelectedDayes: ['']
   });
   }
- 
-onAdd() {
-  // (this.calenderPlugin as FormArray).push(this.formbuilder.group({
-  //   DateRange: [''],
-  //   StartTime: [''],
-  //   EndTime: [''],
-  //   SelectedDayes: ['']
-  // }))
+
+  onGetDates() {
+    const getData = this.dataservice.getData();
+    if (getData.length > 0) {
+      getData.map(res => {
+        res['BookingDates'] = res.Date.split(' ')[0].split('/')[2] + '-' + res.Date.split(' ')[0].split('/')[1] + '-' + res.Date.split(' ')[0].split('/')[0] + ' ' + moment(res.StartTime.split(' ')[1] + res.StartTime.split(' ')[2], 'hh:mm A').format('HH:mm');
+      });
+    }
+
+    const date = new Date();
+    const n = date.toDateString();
+    const time = date.toLocaleTimeString();
+
+    const dateToCheckFor = moment(n).format('YYYY-MM-DD') + ' ' + moment(time, 'hh:mm A').format('HH:mm');
+
+    getData.forEach(date => {
+      let diff = moment(date['BookingDates']).diff(moment(dateToCheckFor), 'minutes');
+      if (diff > 0) {
+        if (this.nearestDate) {
+          if (moment(date['BookingDates']).diff(moment(this.nearestDate?.BookingDates), 'minutes') < 0) {
+            this.nearestDate = date;
+          }
+        } else {
+          this.nearestDate = date;
+        }
+      }
+    });
+
+    this.appointmentDates = moment(this.nearestDate?.BookingDates).format('dddd, D MMMM YYYY, hh A')
+    // + ' - ' +  moment(this.nearestDate?.EndTime.split(' ')[1]+this.nearestDate?.EndTime.split(' ')[2], 'hh:mm A').format('HH:mm A');
   }
   toggleCalender(){
     if(this.isShowCalender){

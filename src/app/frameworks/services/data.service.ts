@@ -265,4 +265,128 @@ export class DataService {
         StartDate:"",
       } as CoachAvailabilityInfoDetail;
     }
+    getData(){
+      return [
+         {
+             "UserId":"891",
+             "FName": "Human",
+             "LName": "Wisdom",
+             "Date": "20/01/2022 12:00:00 AM",
+             "StartTime": "13/01/2022 10:00:00 AM",
+             "EndTime": "13/01/2022 10:30:00 AM",
+             "BookingID": "1",
+             "PerSessionFee": "240",
+             "PerSessionFee_Curr": "USD",
+             "SumOfSession":0
+         },
+         {
+             "UserId":"891",
+             "FName": "Human",
+             "LName": "Wisdom",
+             "Date": "20/1/2022 12:00:00 AM",
+             "StartTime": "13/01/2022 02:30:00 PM",
+             "EndTime": "13/01/2022 11:00:00 AM",
+             "BookingID": "2",
+             "PerSessionFee": "240",
+             "PerSessionFee_Curr": "USD",
+             "SumOfSession":0
+         },
+         {
+           "UserId":"879",
+           "FName": "Pavish",
+           "LName": "Jain",
+           "Date": "26/01/2022 12:00:00 AM",
+           "StartTime": "13/01/2022 10:30:00 AM",
+           "EndTime": "13/01/2022 11:00:00 AM",
+           "BookingID": "2",
+           "PerSessionFee": "240",
+           "PerSessionFee_Curr": "USD",
+           "SumOfSession":0
+       },
+       {
+        "UserId":"879",
+        "FName": "Jigsnes",
+        "LName": "ffsdsdsdfffff",
+        "Date": "22/01/2022 12:00:00 AM",
+        "StartTime": "13/01/2022 06:00:00 PM",
+        "EndTime": "13/01/2022 11:00:00 AM",
+        "BookingID": "2",
+        "PerSessionFee": "240",
+        "PerSessionFee_Curr": "USD",
+        "SumOfSession":0
+    },
+    {
+      "UserId":"879",
+      "FName": "UUUU",
+      "LName": "ffsdsdsdfffff",
+      "Date": "22/01/2022 12:00:00 AM",
+      "StartTime": "13/01/2022 06:00:00 AM",
+      "EndTime": "13/01/2022 11:00:00 AM",
+      "BookingID": "2",
+      "PerSessionFee": "240",
+      "PerSessionFee_Curr": "USD",
+      "SumOfSession":0
+  },
+       {
+        "UserId":"879",
+        "FName": "ffff",
+        "LName": "fffffff",
+        "Date": "23/01/2022 12:00:00 AM",
+        "StartTime": "13/01/2022 06:30:00 PM",
+        "EndTime": "13/01/2022 11:00:00 AM",
+        "BookingID": "2",
+        "PerSessionFee": "240",
+        "PerSessionFee_Curr": "USD",
+        "SumOfSession":0
+    },
+    {
+      "UserId":"879",
+      "FName": "ffff",
+      "LName": "fffffff",
+      "Date": "23/01/2022 12:00:00 AM",
+      "StartTime": "13/01/2022 9:30:00 PM",
+      "EndTime": "13/01/2022 12:00:00 AM",
+      "BookingID": "2",
+      "PerSessionFee": "240",
+      "PerSessionFee_Curr": "USD",
+      "SumOfSession":0
+  },
+       {
+         "UserId":"879",
+         "FName": "Pavish",
+         "LName": "Jain",
+         "Date": "14/01/2022 12:00:00 AM",
+         "StartTime": "13/01/2022 10:30:00 AM",
+         "EndTime": "13/01/2022 11:00:00 AM",
+         "BookingID": "7",
+         "PerSessionFee": "240",
+         "PerSessionFee_Curr": "USD",
+         "SumOfSession":0
+     },
+     {
+       "UserId":"880",
+       "FName": "Test",
+       "LName": "User",
+       "Date": "14/01/2022 12:00:00 AM",
+       "StartTime": "13/01/2022 10:30:00 AM",
+       "EndTime": "13/01/2022 11:00:00 AM",
+       "BookingID": "10",
+       "PerSessionFee": "1000",
+       "PerSessionFee_Curr": "USD",
+       "SumOfSession":0
+   },
+     {
+       "UserId":"879",
+       "FName": "Pavish",
+       "LName": "Jain",
+       "Date": "1/1/2022 12:00:00 AM",
+       "StartTime": "13/01/2022 10:30:00 AM",
+       "EndTime": "13/01/2022 11:00:00 AM",
+       "BookingID": "5",
+       "PerSessionFee": "240",
+       "PerSessionFee_Curr": "USD",
+       "SumOfSession":0
+   },
+     ]
+     }
 }

@@ -58,17 +58,24 @@
                     Upcoming Appointment
                   </h6>
 
-                  <h6 class="txt55 t5p">
-                    Helen Boothman
-                  </h6>
-
-                  <h6 class="txt154">
-                    Friday, 5 Jun 2021, 4.00 PM - 5.00 PM IST
-                  </h6>
-
-                  <button type="submit" class="btn btn-warning btn_coach_vaa w100">
-                    View All Appointments
-                  </button>
+                  <div *ngIf="nearestDate !== null; else noAppointment">
+                    <h6 class="txt55 t5p">
+                      {{nearestDate?.FName}} {{nearestDate?.LName}}
+                    </h6>
+  
+                    <h6 class="txt154">
+                      {{appointmentDates}}
+                      <!-- Friday, 5 Jun 2021, 4.00 PM - 5.00 PM IST -->
+                    </h6>
+  
+                    <button type="submit" class="btn btn-warning btn_coach_vaa w100">
+                      View All Appointments
+                    </button>
+                  </div>
+                  <ng-template #noAppointment>
+                    <h4 class="txt154"> No Appointment AVailable</h4>
+                  </ng-template>
+                  
                 </div>
               </div>
 
