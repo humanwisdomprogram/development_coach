@@ -198,6 +198,17 @@ export class DataService {
           ];
     }
 
+    getDayes(){
+      return  [
+            {"code":"Mon","name":"Monday"},
+            {"code":"Tue","name":"Tuesday"},
+            {"code":"Wed","name":"Wednesday"},
+            {"code":"Thu","name":"Thursday"},
+            {"code":"Fri","name":"Friday"},
+            {"code":"Sat","name":"Saturday"},
+            {"code":"Sun","name":"Sunday"},
+          ];
+    }
     InitializeCoachInfo(){
     return {
       Address:'',

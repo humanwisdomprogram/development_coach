@@ -8,13 +8,15 @@ import { CoachCalendarPluginPageRoutingModule } from './coach-calendar-plugin-ro
 
 import { CoachCalendarPluginPage } from './coach-calendar-plugin.page';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     CoachCalendarPluginPageRoutingModule,
-    NgbModule
+    NgbModule,
+    NgMultiSelectDropDownModule
   ],
   exports: [CoachCalendarPluginPage],
   declarations: [CoachCalendarPluginPage]
