@@ -55,10 +55,10 @@ export class CoachCalendarPluginPage implements OnInit {
   constructor(calendar: NgbCalendar,
       private dataservice: DataService,
        private formbuilder: FormBuilder){    
-    // this.fromDate = calendar.getToday();
-    // this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
-    this.fromDate=null;
-    this.toDate=null;
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 1);
+    // this.fromDate=null;
+    // this.toDate=null;
     this.languageList = this.dataservice.getDayes().
     map(x => new Object({ item_id: x.code, item_text: x.name }));
   this.dropdownSettings = {
@@ -68,6 +68,7 @@ export class CoachCalendarPluginPage implements OnInit {
   }
 
   ngOnInit() {
+    this.onGetDates();
     this.coachAvailabilityInfo= this.dataservice.InitializeCoachAvailability();
     this.coachAvailabilityInfoDetail=this.dataservice.InitializeCoachAvailabilityInfoDetail();
   this.calenderPlugin = this.formbuilder.group({
