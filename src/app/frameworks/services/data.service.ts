@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { CoachAvailabilityInfo, CoachAvailabilityInfoDetail } from "../coach-model/coach-availability-info";
 import { CoachInfo } from "../coach-model/coach-info";
 
 
@@ -200,13 +201,13 @@ export class DataService {
 
     getDayes(){
       return  [
-            {"code":"Mon","name":"Monday"},
-            {"code":"Tue","name":"Tuesday"},
-            {"code":"Wed","name":"Wednesday"},
-            {"code":"Thu","name":"Thursday"},
-            {"code":"Fri","name":"Friday"},
-            {"code":"Sat","name":"Saturday"},
-            {"code":"Sun","name":"Sunday"},
+            {"code":"1","name":"Mon"},
+            {"code":"2","name":"Tue"},
+            {"code":"3","name":"Wed"},
+            {"code":"4","name":"Thur"},
+            {"code":"5","name":"Fri"},
+            {"code":"6","name":"Sat"},
+            {"code":"7","name":"Sun"},
           ];
     }
     InitializeCoachInfo(){
@@ -239,5 +240,29 @@ export class DataService {
       NationalID_BackImgPath:'',
       NationalID_FrontImgPath:''
      } as CoachInfo;
+    }
+
+    InitializeCoachAvailability(){
+      return {
+        EndTime:"",
+        StartTime:"",
+        Days:"",
+        TimeZone:"",
+        Id:"",
+        EndDate:"",
+        StartDate:"",
+      } as CoachAvailabilityInfo;
+    }
+
+    InitializeCoachAvailabilityInfoDetail(){
+      return {
+        EndTime:"",
+        StartTime:"",
+        Day:"",
+        Id:"",
+        CoachAvailabilityInfoId:"",
+        EndDate:"",
+        StartDate:"",
+      } as CoachAvailabilityInfoDetail;
     }
 }
