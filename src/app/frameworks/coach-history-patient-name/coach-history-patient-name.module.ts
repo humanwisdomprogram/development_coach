@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -15,6 +15,6 @@ import { CoachHistoryPatientNamePage } from './coach-history-patient-name.page';
     IonicModule,
     CoachHistoryPatientNamePageRoutingModule
   ],
-  declarations: [CoachHistoryPatientNamePage]
+  declarations: [CoachHistoryPatientNamePage,DatePipe]
 })
 export class CoachHistoryPatientNamePageModule {}

@@ -53,12 +53,10 @@
                   </h6>
                 </div> 
                 <div class="col-md-5 col-sm-5 col-xs-5 year_month">
-                  <select class="form-control coach_fc_02">
+                  <select class="form-control coach_fc_02" (change)="ChangeHistory($event)" >
                     <option>Patient</option>
-                    <option>Option one</option>
-                    <option>Option two</option>
-                    <option>Option three</option>
-                    <option>Option four</option>
+                    <option>Date</option>
+                    <option>Revenue</option>
                   </select> 
                 </div>                  
               </div>
@@ -68,21 +66,21 @@
               <!-- accordion -->
               <div class="mlr-10px">
                 <div class="panel-group" id="coach_accordion">
-
+               <ng-container *ngFor="let userId of UserIds">
                   <div class="panel panel-default coach_accordion">
                     <div class="panel-heading">
                       <h4 class="panel-title">                        
-                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#a1"> 
+                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#{{userId}}"> 
                           <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12 p0 flex_ai">
                               <div class="col-md-8 col-sm-8 col-xs-8 p0">
                                 <h6 class="txt167 mtb0px">
-                                  Carol Carver
+                                  {{GetUserName(userId)}}
                                 </h6>
                               </div>
                               <div class="col-md-4 col-sm-4 col-xs-3 pl0px">
                                 <h6 class="txt155 mtb0px tright">
-                                  USD 100
+                                {{GetRevenueCount(userId)}}
                                 </h6>
                               </div>
                             </div>
@@ -90,411 +88,29 @@
                         </a>
                       </h4>
                     </div>
-                    <div id="a1" class="panel-collapse collapse">
-                      <div class="panel-body">
-
+                    <div id="{{userId}}" class="panel-collapse collapse" >
+                      <div class="panel-body" >
+                        <ng-container *ngFor="let item of GetFilteredAppointmentList(userId); let i = index;">
                         <div class="row flex_ai">
                           <div class="col-md-8 col-sm-8 col-xs-8">
                             <h6 class="txt70 mtb0px">
-                              22 June, 4-5 PM IST
+                              {{ item.Date | date :'mediumDate'}}   {{item.StartTime | date:'shortTime'}} -  {{item.EndTime | date:'shortTime'}}  MST
                             </h6>                            
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-4">
                             <h6 class="txt143 mtb0px tright">
-                              USD 100
+                             {{item.PerSessionFee_Curr}}  {{item.PerSessionFee  | number : '1.0-0'}} 
                             </h6>
                           </div>
                         </div> 
-
                         <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              15 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              08 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
+                       </ng-container>
+                     
 
                       </div>
                     </div>
                   </div>
-
-                  <div class="panel panel-default coach_accordion">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">                        
-                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#a2"> 
-                          <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 p0 flex_ai">
-                              <div class="col-md-8 col-sm-8 col-xs-8 p0">
-                                <h6 class="txt167 mtb0px">
-                                  Helen Boothman (10)
-                                </h6>
-                              </div>
-                              <div class="col-md-4 col-sm-4 col-xs-3 pl0px">
-                                <h6 class="txt155 mtb0px tright">
-                                  USD 1,000
-                                </h6>
-                              </div>
-                            </div>
-                          </div>                          
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="a2" class="panel-collapse collapse">
-                      <div class="panel-body">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              22 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              15 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              08 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="panel panel-default coach_accordion">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">                        
-                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#a3"> 
-                          <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 p0 flex_ai">
-                              <div class="col-md-8 col-sm-8 col-xs-8 p0">
-                                <h6 class="txt167 mtb0px">
-                                  Ian Vance
-                                </h6>
-                              </div>
-                              <div class="col-md-4 col-sm-4 col-xs-3 pl0px">
-                                <h6 class="txt155 mtb0px tright">
-                                  USD 80
-                                </h6>
-                              </div>
-                            </div>
-                          </div>                          
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="a3" class="panel-collapse collapse">
-                      <div class="panel-body">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              22 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              15 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              08 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="panel panel-default coach_accordion">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">                        
-                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#a4"> 
-                          <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 p0 flex_ai">
-                              <div class="col-md-8 col-sm-8 col-xs-8 p0">
-                                <h6 class="txt167 mtb0px">
-                                  Julyan Matthews (10)
-                                </h6>
-                              </div>
-                              <div class="col-md-4 col-sm-4 col-xs-3 pl0px">
-                                <h6 class="txt155 mtb0px tright">
-                                  USD 1,000
-                                </h6>
-                              </div>
-                            </div>
-                          </div>                          
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="a4" class="panel-collapse collapse">
-                      <div class="panel-body">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              22 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              15 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              08 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="panel panel-default coach_accordion">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">                        
-                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#a5"> 
-                          <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 p0 flex_ai">
-                              <div class="col-md-8 col-sm-8 col-xs-8 p0">
-                                <h6 class="txt167 mtb0px">
-                                  Leanne Suggitt (3)
-                                </h6>
-                              </div>
-                              <div class="col-md-4 col-sm-4 col-xs-3 pl0px">
-                                <h6 class="txt155 mtb0px tright">
-                                  USD 300
-                                </h6>
-                              </div>
-                            </div>
-                          </div>                          
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="a5" class="panel-collapse collapse">
-                      <div class="panel-body">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              22 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              15 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              08 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="panel panel-default coach_accordion">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">                        
-                        <a data-toggle="collapse" data-parent="#coach_accordion" href="#a6"> 
-                          <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 p0 flex_ai">
-                              <div class="col-md-8 col-sm-8 col-xs-8 p0">
-                                <h6 class="txt167 mtb0px">
-                                  Priscilla Narang (3)
-                                </h6>
-                              </div>
-                              <div class="col-md-4 col-sm-4 col-xs-3 pl0px">
-                                <h6 class="txt155 mtb0px tright">
-                                  USD 300
-                                </h6>
-                              </div>
-                            </div>
-                          </div>                          
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="a6" class="panel-collapse collapse in">
-                      <div class="panel-body">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              22 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              15 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                        <hr class="hr_style_5">
-
-                        <div class="row flex_ai">
-                          <div class="col-md-8 col-sm-8 col-xs-8">
-                            <h6 class="txt70 mtb0px">
-                              08 June, 4-5 PM IST
-                            </h6>                            
-                          </div>
-                          <div class="col-md-4 col-sm-4 col-xs-4">
-                            <h6 class="txt143 mtb0px tright">
-                              USD 100
-                            </h6>
-                          </div>
-                        </div> 
-
-                      </div>
-                    </div>
-                  </div>
-
+               </ng-container>
                 </div>                
               </div>
               <!-- /accordion -->
