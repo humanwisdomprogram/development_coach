@@ -15,6 +15,6 @@ import { CoachHistoryPatientNamePage } from './coach-history-patient-name.page';
     IonicModule,
     CoachHistoryPatientNamePageRoutingModule
   ],
-  declarations: [CoachHistoryPatientNamePage,DatePipe]
+  declarations: [CoachHistoryPatientNamePage]
 })
 export class CoachHistoryPatientNamePageModule {}

@@ -5,6 +5,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CoachAvailabilityInfo, CoachAvailabilityInfoDetail } from '../coach-model/coach-availability-info';
 import { DataService } from '../services/data.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -54,7 +55,8 @@ export class CoachCalendarPluginPage implements OnInit {
   appointmentDates = '';
   constructor(calendar: NgbCalendar,
       private dataservice: DataService,
-       private formbuilder: FormBuilder){    
+       private formbuilder: FormBuilder,
+       private router :Router){    
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 1);
     // this.fromDate=null;
@@ -130,6 +132,9 @@ export class CoachCalendarPluginPage implements OnInit {
     }
    
     
+  }
+  ViewAllApp(){
+    this.router.navigate(['frameworks/coach-history-date'])
   }
 
   isHovered(date: NgbDate) {

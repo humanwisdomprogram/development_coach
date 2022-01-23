@@ -16,6 +16,6 @@ import { GroupByPipe } from '../Pipe/group-by.pipe';
     IonicModule,
     CoachHistoryDatePageRoutingModule,
   ],
-  declarations: [CoachHistoryDatePage,GroupByPipe,DatePipe]
+  declarations: [CoachHistoryDatePage,GroupByPipe]
 })
 export class CoachHistoryDatePageModule {}
